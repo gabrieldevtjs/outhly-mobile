@@ -15,11 +15,11 @@ const AuthScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <Image
+        {/* <Image
           source={require("@assets/semfundo.png")}
           style={styles.productImage}
           resizeMode="cover"
-        />
+        /> */}
         <View
           style={{ justifyContent: "center", alignItems: "center", gap: 60 }}
         >
