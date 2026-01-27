@@ -2,6 +2,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthScreen from "../../../../views/screens/auth";
 import LoginScreen from "../../../../views/screens/login";
 import Sliders from "../../../../views/screens/sliders";
+import Splash from "../../../../views/screens/splash";
+import RegisterScreen from "../../../../views/screens/register";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,16 +14,23 @@ const AuthRoutes = () => {
         headerShown: false,
       }}
     >
-
       <Stack.Screen
-        name="aaaaa"
-        component={Sliders}
+        name="splash"
+        component={Splash}
         options={{
-          title: "Auth",
+          title: "splash",
         }}
       />
 
-      {/* <Stack.Screen
+      <Stack.Screen
+        name="sliders"
+        component={Sliders}
+        options={{
+          title: "sliders",
+        }}
+      />
+
+      <Stack.Screen
         name="Auth"
         component={AuthScreen}
         options={{
@@ -34,7 +43,14 @@ const AuthRoutes = () => {
         options={{
           title: "Login",
         }}
-      /> */}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{
+          title: "Register",
+        }}
+      />
     </Stack.Navigator>
   );
 };

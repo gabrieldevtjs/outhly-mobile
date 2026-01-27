@@ -15,11 +15,11 @@ const AuthScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        {/* <Image
-          source={require("@assets/semfundo.png")}
+        <Image
+          source={require("@assets/images/auth/login.png")}
           style={styles.productImage}
           resizeMode="cover"
-        /> */}
+        />
         <View
           style={{ justifyContent: "center", alignItems: "center", gap: 60 }}
         >
@@ -64,6 +64,7 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+        backgroundColor: "#1F41BB",
   },
   productImage: {
     width: 300,

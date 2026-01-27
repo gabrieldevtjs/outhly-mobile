@@ -14,7 +14,7 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,9 +27,8 @@ const LoginScreen = () => {
   };
 
   const redirect = () => {
-    navigation.navigate('Register')
-  }
-
+    navigation.navigate("Login");
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -46,10 +45,34 @@ const LoginScreen = () => {
               style={styles.productImage}
               resizeMode="cover"
             />
-            
           </View>
           <View style={styles.formContainer}>
-            
+            <View style={styles.inputWrapper}>
+              <View
+                style={[
+                  styles.inputContainer,
+                  focusedInput === "email" && styles.inputFocused,
+                ]}
+              >
+                <Ionicons
+                  name="mail-outline"
+                  size={20}
+                  color={focusedInput === "email" ? "#1F41BB" : "#999"}
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="CPF"
+                  placeholderTextColor="#999"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onFocus={() => setFocusedInput("email")}
+                  onBlur={() => setFocusedInput(null)}
+                />
+              </View>
+            </View>
             <View style={styles.inputWrapper}>
               <View
                 style={[
@@ -108,16 +131,12 @@ const LoginScreen = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={handleSignIn}
               style={styles.signInButton}
             >
-              <Text style={styles.signInText}>Entrar</Text>
+              <Text style={styles.signInText}>Cadastrar</Text>
             </TouchableOpacity>
 
             <View style={styles.divider}>
@@ -139,9 +158,11 @@ const LoginScreen = () => {
             </View>
 
             <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Não tem uma conta? </Text>
+              <Text style={styles.signUpText}>Já tem uma conta? </Text>
               <TouchableOpacity>
-                <Text style={styles.signUpLink} onPress={() => redirect()}>Cadastre-se</Text>
+                <Text style={styles.signUpLink} onPress={() => redirect()}>
+                  Login
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -323,4 +344,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

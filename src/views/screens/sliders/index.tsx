@@ -1,14 +1,27 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Slider from "./components/slider";
 import { SLIDERS_MESSAGE } from "./utils/constants";
+import { useNavigation } from "@react-navigation/native";
 
 const Sliders = () => {
   const swiperRef = useRef<Swiper>(null);
+  const navigation = useNavigation<any>();
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isLastSlide = currentIndex === SLIDERS_MESSAGE.length - 1;
 
   const handleNext = () => {
-    swiperRef.current?.scrollBy(1);
+    if (isLastSlide) {
+      redirectLogin();
+    } else {
+      swiperRef.current?.scrollBy(1);
+    }
+  };
+
+  const redirectLogin = () => {
+    navigation.navigate("Login");
   };
 
   return (
@@ -21,6 +34,7 @@ const Sliders = () => {
         dot={<View style={styles.dot} />}
         activeDot={<View style={styles.activeDot} />}
         paginationStyle={styles.pagination}
+        onIndexChanged={(index) => setCurrentIndex(index)}
       >
         {SLIDERS_MESSAGE.map((slide: any) => (
           <View key={slide.id} style={styles.slide}>
@@ -38,8 +52,13 @@ const Sliders = () => {
       </Swiper>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonNext} onPress={handleNext}>
-          <Text style={styles.buttonText}>Próximo</Text>
+        <TouchableOpacity
+          onPress={handleNext}
+          style={{ backgroundColor: "#BB44CF", padding: 12, borderRadius: 12 }}
+        >
+          <Text style={styles.buttonText}>
+            {isLastSlide ? "Começar" : "Próximo"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -49,7 +68,7 @@ const Sliders = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1F41BB",
+    backgroundColor: "#121212",
   },
   wrapper: {},
   slide: {
@@ -77,32 +96,14 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   buttonContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
     paddingHorizontal: 24,
     paddingBottom: 32,
-  },
-  buttonNext: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    paddingHorizontal: 48,
-    paddingVertical: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   buttonText: {
     fontWeight: "700",
     fontSize: 16,
     textAlign: "center",
-    color: "#1F41BB",
+    color: "#fff",
   },
 });
 

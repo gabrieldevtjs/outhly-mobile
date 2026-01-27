@@ -39,11 +39,12 @@ const Slider = ({
 
 const styles = StyleSheet.create({
   section: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingVertical: 120,
+    paddingHorizontal: 10,
+    paddingVertical: 90,
+    maxHeight: "auto"
   },
   lottie: {
     height: 300,
@@ -52,12 +53,12 @@ const styles = StyleSheet.create({
   sectionContent: {
     gap: 12,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 2,
     marginBottom: 40,
   },
   title: {
     textAlign: "center",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: 28,
     color: "#FFFFFF",
   },
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     color: "#E0E0E0",
+    fontWeight: "500",
     lineHeight: 24,
   },
   buttonNext: {
