@@ -1,15 +1,12 @@
 import { create } from "zustand";
+import { AuthStore } from "./types";
 
-const userStore = create((set) => ({
+const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   isLoading: false,
-  isAfterLogin: false,
-
-  signIn: async (cpf: string, password: string) => {
-		set({ isLoading: true, isAfterLogin: true });
-		
-		// try {
-		// 	const response = await 
-		// }
-  },
+  setUser: (user) => set({ user }),
+  setLoading: (isLoading) => set({ isLoading }),
+  signOut: () => set({ user: null }),
 }));
+
+export { useAuthStore }

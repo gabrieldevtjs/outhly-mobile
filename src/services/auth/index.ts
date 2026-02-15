@@ -1,5 +1,5 @@
 import { api } from "../../infrastructure/http/axios/api";
-import { CreateUserFormType, LoginUserFormType, ResponseTokens } from "./types";
+import { CreateUserFormType, LoginUserFormType, RegisterResponse } from "./types";
 
 const path = "register";
 
@@ -27,7 +27,7 @@ const AuthService = {
     queryFn: async () => {
       const response = await api.post(`${path}`);
 
-      return response.data as ResponseTokens;
+      return response.data as RegisterResponse;
     },
   },
 };

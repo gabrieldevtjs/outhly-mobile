@@ -6,9 +6,9 @@ import Providers from "./providers";
 const Container = () => {
   return (
     <NavigationContainer>
-      {/* <Providers> */}
+      <Providers>
         <AuthRoutes />
-      {/* </Providers> */}
+      </Providers>
     </NavigationContainer>
   );
 };

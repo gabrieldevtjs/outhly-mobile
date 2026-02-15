@@ -9,7 +9,19 @@ export type LoginUserFormType = {
   password: string;
 };
 
-export type ResponseTokens = {
-  access_token: string;
-  refresh_token: string;
+export type RegisterResponse = {
+  message: string;
+  data: {
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      aitvo: boolean;
+      criado_em: string;
+    };
+    tokens: {
+      accessToken: string;
+      refreshToken: string;
+    };
+  };
 };
