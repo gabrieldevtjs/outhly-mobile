@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterType, SchemaRegister } from "../model/zod";
-
+import { AuthService } from "../../../../services/auth";
 
 export function useRegisterViewModel() {
   const navigation = useNavigation<any>();
@@ -17,15 +17,15 @@ export function useRegisterViewModel() {
     resolver: zodResolver(SchemaRegister),
   });
 
-  async function onSubmit(data: RegisterType) {
+  const onSubmit = async (data: RegisterType) => {
     try {
-      // await authStore.signUp(data)
+      await AuthService.register.queryFn(data);
       console.log(data);
-      navigation.navigate("Login");
+      // navigation.navigate("Login");
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return {
     control,

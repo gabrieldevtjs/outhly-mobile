@@ -6,10 +6,9 @@ const path = "register";
 const AuthService = {
   register: {
     queryFn: async (body: CreateUserFormType) => {
-      const response = await api.post(`${path}`, {
-        body: body,
-      });
+      const response = await api.post(`${path}`, body);
 
+			console.log(JSON.stringify(response.data, null, 2 ))
       return response.data as any;
     },
   },

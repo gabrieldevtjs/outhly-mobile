@@ -2,9 +2,8 @@ import axios from "axios";
 import { ApiInstance } from "./types";
 
 const ENVIRONMENTS = {
-  DEV: process.env.EXPO_PUBLIC_API_GAS_FACIL_DEV,
-  LOCAL: process.env.EXPO_PUBLIC_API_GAS_FACIL_LOCAL,
-  PROD: process.env.EXPO_PUBLIC_API_GAS_FACIL_PROD,
+  DEV: process.env.EXPO_PUBLIC_API_AUTLY_DEV,
+  LOCAL: process.env.EXPO_PUBLIC_API_AUTLY_LOCAL,
 } as const;
 
 const getCurrentEnv = () => {

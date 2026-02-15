@@ -14,7 +14,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRegisterViewModel } from "../viewModel";
 
 const RegisterScreen = () => {
-  const vm = useRegisterViewModel();
+  const {
+    control,
+    errors,
+    showPassword,
+    toggleShowPassword,
+    goToLogin,
+    handleSubmit,
+    isSubmitting,
+  } = useRegisterViewModel();
 
   return (
     <KeyboardAvoidingView
@@ -36,14 +44,14 @@ const RegisterScreen = () => {
 
           <View style={styles.formContainer}>
             <Controller
-              control={vm.control}
+              control={control}
               name="name"
               render={({ field: { onChange, onBlur, value } }) => (
                 <View style={styles.inputWrapper}>
                   <View
                     style={[
                       styles.inputContainer,
-                      vm.errors.name && styles.inputError,
+                      errors.name && styles.inputError,
                     ]}
                   >
                     <Ionicons
@@ -61,24 +69,22 @@ const RegisterScreen = () => {
                       onBlur={onBlur}
                     />
                   </View>
-                  {vm.errors.name && (
-                    <Text style={styles.errorText}>
-                      {vm.errors.name.message}
-                    </Text>
+                  {errors.name && (
+                    <Text style={styles.errorText}>{errors.name.message}</Text>
                   )}
                 </View>
               )}
             />
 
             <Controller
-              control={vm.control}
+              control={control}
               name="email"
               render={({ field: { onChange, onBlur, value } }) => (
                 <View style={styles.inputWrapper}>
                   <View
                     style={[
                       styles.inputContainer,
-                      vm.errors.email && styles.inputError,
+                      errors.email && styles.inputError,
                     ]}
                   >
                     <Ionicons
@@ -98,24 +104,22 @@ const RegisterScreen = () => {
                       autoCapitalize="none"
                     />
                   </View>
-                  {vm.errors.email && (
-                    <Text style={styles.errorText}>
-                      {vm.errors.email.message}
-                    </Text>
+                  {errors.email && (
+                    <Text style={styles.errorText}>{errors.email.message}</Text>
                   )}
                 </View>
               )}
             />
 
             <Controller
-              control={vm.control}
+              control={control}
               name="password"
               render={({ field: { onChange, onBlur, value } }) => (
                 <View style={styles.inputWrapper}>
                   <View
                     style={[
                       styles.inputContainer,
-                      vm.errors.password && styles.inputError,
+                      errors.password && styles.inputError,
                     ]}
                   >
                     <Ionicons
@@ -131,24 +135,22 @@ const RegisterScreen = () => {
                       value={value}
                       onChangeText={onChange}
                       onBlur={onBlur}
-                      secureTextEntry={!vm.showPassword}
+                      secureTextEntry={!showPassword}
                     />
                     <TouchableOpacity
-                      onPress={vm.toggleShowPassword}
+                      onPress={toggleShowPassword}
                       style={styles.eyeIcon}
                     >
                       <Ionicons
-                        name={
-                          vm.showPassword ? "eye-outline" : "eye-off-outline"
-                        }
+                        name={showPassword ? "eye-outline" : "eye-off-outline"}
                         size={20}
                         color="#BB44CF"
                       />
                     </TouchableOpacity>
                   </View>
-                  {vm.errors.password && (
+                  {errors.password && (
                     <Text style={styles.errorText}>
-                      {vm.errors.password.message}
+                      {errors.password.message}
                     </Text>
                   )}
                 </View>
@@ -157,18 +159,18 @@ const RegisterScreen = () => {
 
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={vm.handleSubmit}
-              disabled={vm.isSubmitting}
+              onPress={handleSubmit}
+              disabled={isSubmitting}
               style={styles.signInButton}
             >
               <Text style={styles.signInText}>
-                {vm.isSubmitting ? "Cadastrando..." : "Cadastrar"}
+                {isSubmitting ? "Cadastrando..." : "Cadastrar"}
               </Text>
             </TouchableOpacity>
 
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Já tem uma conta? </Text>
-              <TouchableOpacity onPress={vm.goToLogin}>
+              <TouchableOpacity onPress={goToLogin}>
                 <Text style={styles.signUpLink}>Login</Text>
               </TouchableOpacity>
             </View>
