@@ -10,7 +10,9 @@ const Header = () => {
     <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.row}>
         <View style={styles.info}>
-          <Text style={styles.greeting}>Olá, {user?.name}!</Text>
+          <Text style={styles.greeting}>
+            Olá, <Text style={{ color: "#F15EF1" }}>{user?.name}</Text>
+          </Text>
 
           <Text style={styles.badgeText}>Bem vindo ao seu cofre</Text>
         </View>

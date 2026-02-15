@@ -5,15 +5,15 @@ import { CategoryCard } from "../components/card";
 const cards = [
   {
     id: "passwords",
-    title: "Minhas Senhas",
+    title: "Senhas",
     subtitle: "124 itens salvos",
-    icon: "ellipsis-horizontal" as const,
+    icon: "lock-closed" as const,
   },
   {
-    id: "favorites",
-    title: "Favoritos",
-    subtitle: "Acesso prioritário",
-    icon: "star" as const,
+    id: "annotations",
+    title: "Anotações",
+    subtitle: "32 notas salvas",
+    icon: "document-text" as const,
   },
   {
     id: "generator",
@@ -34,7 +34,7 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Meus acessos</Text>
+          <Text style={styles.sectionTitle}>Categorias</Text>
 
           <TouchableOpacity style={styles.seeAllContent}>
             <View style={styles.seeAllRow}>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-        paddingHorizontal: 2,
+    paddingHorizontal: 2,
   },
   sectionTitle: {
     color: "#fff",
