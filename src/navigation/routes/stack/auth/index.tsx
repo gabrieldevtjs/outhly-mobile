@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AuthScreen from "../../../../views/screens/auth";
-import LoginScreen from "../../../../views/screens/login";
-import Sliders from "../../../../views/screens/sliders";
-import Splash from "../../../../views/screens/splash";
-import RegisterScreen from "../../../../views/screens/register";
+import AuthScreen from "../../../../screens/auth";
+import LoginScreen from "../../../../screens/auth/views/login";
+import Sliders from "../../../../screens/sliders";
+import Splash from "../../../../screens/sliders/splash";
+import RegisterScreen from "../../../../screens/auth/views/register";
 
 const Stack = createNativeStackNavigator();
 

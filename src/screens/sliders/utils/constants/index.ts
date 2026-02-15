@@ -1,7 +1,7 @@
 export const SLIDERS_MESSAGE = [
   {
     id: 1,
-    lottie: require("@assets/images/sliders/slider_primary.json"),
+    lottie: require("@assets/images/sliders/slider-primary.json"),
     width: 300,
     height: 300,
     title: "Get Started Now!",
@@ -10,7 +10,7 @@ export const SLIDERS_MESSAGE = [
   },
   {
     id: 2,
-    lottie: require("@assets/images/sliders/slider_secondary.json"),
+    lottie: require("@assets/images/sliders/slider-secondary.json"),
     width: 300,
     height: 300,
     title: "Organize Sua Vida",
@@ -19,7 +19,7 @@ export const SLIDERS_MESSAGE = [
   },
   {
     id: 3,
-    lottie: require("@assets/images/sliders/slider_tertiary.json"),
+    lottie: require("@assets/images/sliders/slider-tertiary.json"),
     width: 300,
     height: 300,
     title: "Alcance Seus Objetivos",

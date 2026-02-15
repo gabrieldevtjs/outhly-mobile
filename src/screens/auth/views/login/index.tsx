@@ -11,8 +11,13 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 
 import { Ionicons } from "@expo/vector-icons";
+import {
+  Input,
+  InputController,
+} from "../../../../components/InputController";
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
@@ -21,14 +26,18 @@ const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
 
+  const { register, handleSubmit, control } = useForm({
+    mode: "onChange",
+  });
+
   const handleSignIn = () => {
     console.log("Email:", email);
     console.log("Password:", password);
   };
 
   const redirect = () => {
-    navigation.navigate('Register')
-  }
+    navigation.navigate("Register");
+  };
 
   return (
     <KeyboardAvoidingView
@@ -46,21 +55,14 @@ const LoginScreen = () => {
               style={styles.productImage}
               resizeMode="cover"
             />
-            
           </View>
           <View style={styles.formContainer}>
-            
             <View style={styles.inputWrapper}>
-              <View
-                style={[
-                  styles.inputContainer,
-                  focusedInput === "email" && styles.inputFocused,
-                ]}
-              >
+              <View style={[styles.inputContainer]}>
                 <Ionicons
                   name="mail-outline"
                   size={20}
-                  color={focusedInput === "email" ? "#1F41BB" : "#999"}
+                  color={"#999"}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -82,7 +84,7 @@ const LoginScreen = () => {
                 <Ionicons
                   name="lock-closed-outline"
                   size={20}
-                  color={focusedInput === "password" ? "#1F41BB" : "#999"}
+                  color={"#999"}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -107,6 +109,39 @@ const LoginScreen = () => {
                 </TouchableOpacity>
               </View>
             </View>
+            {/* 
+            <View style={styles.inputWrapper}>
+              <View style={styles.inputContainer}>
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={focusedInput === "password" ? "#1F41BB" : "#999"}
+                  style={styles.inputIcon}
+                />
+
+                <InputController control={control} name="teste">
+                  {(field) => (
+                    <Input
+                      placeholder="teste"
+                      value={field.value}
+                      onChangeText={field.onChange}
+                      onBlur={field.onBlur}
+                    />
+                  )}
+                </InputController>
+
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons
+                    name={showPassword ? "eye-outline" : "eye-off-outline"}
+                    size={20}
+                    color="#BB44CF"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View> */}
 
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
@@ -141,7 +176,9 @@ const LoginScreen = () => {
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Não tem uma conta? </Text>
               <TouchableOpacity>
-                <Text style={styles.signUpLink} onPress={() => redirect()}>Cadastre-se</Text>
+                <Text style={styles.signUpLink} onPress={() => redirect()}>
+                  Cadastre-se
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -232,7 +269,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 15,
-    color: "#1a1a1a",
+    color: "#fff",
   },
   eyeIcon: {
     padding: 4,
