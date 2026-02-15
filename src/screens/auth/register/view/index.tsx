@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRegisterViewModel } from "../../viewModels/register";
+import { useRegisterViewModel } from "../viewModel";
 
 const RegisterScreen = () => {
   const vm = useRegisterViewModel();

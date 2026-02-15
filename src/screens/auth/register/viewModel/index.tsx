@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterType, SchemaRegister } from "../../model/zod/register";
+import { RegisterType, SchemaRegister } from "../model/zod";
+
 
 export function useRegisterViewModel() {
   const navigation = useNavigation<any>();

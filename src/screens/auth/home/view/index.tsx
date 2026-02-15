@@ -7,11 +7,11 @@ const AuthScreen = () => {
   const redirectLogin = () => {
     navigation.navigate("Login");
   };
-  
-    const redireactLogin = () => {
+
+  const redireactLogin = () => {
     navigation.navigate("Login");
   };
-//aaaaaa
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -64,7 +64,7 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-        backgroundColor: "#1F41BB",
+    backgroundColor: "#1F41BB",
   },
   productImage: {
     width: 300,
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   sectionButton: {
-    flexDirection: "row",
     paddingHorizontal: 26,
     gap: 20,
   },

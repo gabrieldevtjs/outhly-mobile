@@ -14,10 +14,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Input,
-  InputController,
-} from "../../../../components/InputController";
+// import { Input, InputController } from "../../../components/InputController";
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
