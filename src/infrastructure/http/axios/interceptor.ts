@@ -1,64 +1,71 @@
-// import { AxiosError } from "axios";
-// import { QueueItem } from "./types";
-// import { api } from "./api";
-// import { AuthService } from "../../../services/auth";
+import { AxiosError } from "axios";
+import { QueueItem } from "./types";
+import { api } from "./api";
+import { AuthService } from "../../../services/auth";
+import { AuthStorage } from "../../storage/secure";
 
-// let queue: QueueItem[] = [];
-// let isRefreshing = false;
+let queue: QueueItem[] = [];
+let isRefreshing = false;
 
-// api.registerInterceptTokenManager = (signOut) => {
-//   const interceptor = api.interceptors.response.use(
-//     (response) => response,
+api.registerInterceptTokenManager = (signOut) => {
+  const interceptor = api.interceptors.response.use(
+    (response) => response,
 
-//     async (error) => {
-//       if (error.response?.status !== 401) {
-//         return Promise.reject(error);
-//       }
+    async (error) => {
+      if (error.response?.status !== 401) {
+        return Promise.reject(error);
+      }
 
-//       const refresh_token = "seu_refresh_token_aqui";
+      const refresh_token = await AuthStorage.getRefreshToken();
 
-//       if (!refresh_token) {
-//         signOut();
-//         return Promise.reject(error);
-//       }
+      if (!refresh_token) {
+        signOut();
+        return Promise.reject(error);
+      }
 
-//       const config = error.config;
+      const config = error.config;
 
-//       if (isRefreshing) {
-//         return new Promise((resolve, reject) => {
-//           queue.push({
-//             onSuccess: (token) => {
-//               config.headers = { Authorization: `Bearer ${token}` };
-//               resolve(api(config));
-//             },
-//             onFailure: reject,
-//           });
-//         });
-//       }
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          queue.push({
+            onSuccess: (token) => {
+              config.headers = { Authorization: `Bearer ${token}` };
+              resolve(api(config));
+            },
+            onFailure: reject,
+          });
+        });
+      }
 
-//       isRefreshing = true;
+      isRefreshing = true;
 
-//       try {
-//         const { access_token, refresh_token: new_refresh } =
-//           await AuthService.refresh.queryFn();
+      try {
+        const {
+          data: { tokens },
+        } = await AuthService.refresh.queryFn();
 
-//         api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-//         config.headers = { Authorization: `Bearer ${access_token}` };
+        const { newAccessToken, newRefreshToken } = tokens;
 
-//         queue.forEach((req) => req.onSuccess(access_token));
+        await AuthStorage.save(newAccessToken, newRefreshToken);
 
-//         return api(config);
-//       } catch (err) {
-//         queue.forEach((req) => req.onFailure(err as AxiosError));
-//         signOut();
-//         return Promise.reject(err);
-//       } finally {
-//         isRefreshing = false;
-//         queue = [];
-//       }
-//     },
-//   );
-//   return () => api.interceptors.response.eject(interceptor);
-// };
+        api.defaults.headers.common["Authorization"] =
+          `Bearer ${newAccessToken}`;
+        config.headers = { Authorization: `Bearer ${newAccessToken}` };
 
-// export { api };
+        queue.forEach((req) => req.onSuccess(newAccessToken));
+
+        return api(config);
+      } catch (err) {
+        queue.forEach((req) => req.onFailure(err as AxiosError));
+        signOut();
+        return Promise.reject(err);
+      } finally {
+        isRefreshing = false;
+        queue = [];
+      }
+    },
+  );
+  return () => api.interceptors.response.eject(interceptor);
+};
+
+export { api };

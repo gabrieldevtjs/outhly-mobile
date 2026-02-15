@@ -9,6 +9,13 @@ export type LoginUserFormType = {
   password: string;
 };
 
+export type TokensResponseType = {
+  tokens: {
+    newAccessToken: string;
+    newRefreshToken: string;
+  };
+};
+
 export type RegisterResponse = {
   message: string;
   data: {

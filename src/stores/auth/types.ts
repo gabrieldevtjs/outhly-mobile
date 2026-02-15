@@ -2,8 +2,6 @@ export type User = {
   id: string;
   name: string;
   email: string;
-  avatar: string | null;
-  empresa?: string;
 };
 
 export type AuthStore = {
