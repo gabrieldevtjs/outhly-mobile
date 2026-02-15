@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { Controller } from "react-hook-form";
 import {
   View,
   Text,
@@ -11,30 +10,19 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { useForm, Controller } from "react-hook-form";
-
 import { Ionicons } from "@expo/vector-icons";
-// import { Input, InputController } from "../../../components/InputController";
+import { UseLoginViewModel } from "../viewModel";
 
 const LoginScreen = () => {
-  const navigation = useNavigation<any>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [focusedInput, setFocusedInput] = useState<string | null>(null);
-
-  const { register, handleSubmit, control } = useForm({
-    mode: "onChange",
-  });
-
-  const handleSignIn = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
-  const redirect = () => {
-    navigation.navigate("Register");
-  };
+  const {
+    control,
+    errors,
+    showPassword,
+    toggleShowPassword,
+    handleSubmit,
+    isSubmitting,
+    goToRegister,
+  } = UseLoginViewModel();
 
   return (
     <KeyboardAvoidingView
@@ -53,92 +41,88 @@ const LoginScreen = () => {
               resizeMode="cover"
             />
           </View>
+
           <View style={styles.formContainer}>
-            <View style={styles.inputWrapper}>
-              <View style={[styles.inputContainer]}>
-                <Ionicons
-                  name="mail-outline"
-                  size={20}
-                  color={"#999"}
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email"
-                  placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  onFocus={() => setFocusedInput("email")}
-                  onBlur={() => setFocusedInput(null)}
-                />
-              </View>
-            </View>
-
-            <View style={styles.inputWrapper}>
-              <View style={styles.inputContainer}>
-                <Ionicons
-                  name="lock-closed-outline"
-                  size={20}
-                  color={"#999"}
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={[styles.input, { flex: 1 }]}
-                  placeholder="Senha"
-                  placeholderTextColor="#999"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  onFocus={() => setFocusedInput("password")}
-                  onBlur={() => setFocusedInput(null)}
-                />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
-                    size={20}
-                    color="#BB44CF"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-            {/* 
-            <View style={styles.inputWrapper}>
-              <View style={styles.inputContainer}>
-                <Ionicons
-                  name="lock-closed-outline"
-                  size={20}
-                  color={focusedInput === "password" ? "#1F41BB" : "#999"}
-                  style={styles.inputIcon}
-                />
-
-                <InputController control={control} name="teste">
-                  {(field) => (
-                    <Input
-                      placeholder="teste"
-                      value={field.value}
-                      onChangeText={field.onChange}
-                      onBlur={field.onBlur}
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={styles.inputWrapper}>
+                  <View
+                    style={[
+                      styles.inputContainer,
+                      errors.email && styles.inputError,
+                    ]}
+                  >
+                    <Ionicons
+                      name="mail-outline"
+                      size={20}
+                      color="#999"
+                      style={styles.inputIcon}
                     />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Email"
+                      placeholderTextColor="#999"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                    />
+                  </View>
+                  {errors.email && (
+                    <Text style={styles.errorText}>{errors.email.message}</Text>
                   )}
-                </InputController>
+                </View>
+              )}
+            />
 
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
-                    size={20}
-                    color="#BB44CF"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View> */}
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={styles.inputWrapper}>
+                  <View
+                    style={[
+                      styles.inputContainer,
+                      errors.password && styles.inputError,
+                    ]}
+                  >
+                    <Ionicons
+                      name="lock-closed-outline"
+                      size={20}
+                      color="#999"
+                      style={styles.inputIcon}
+                    />
+                    <TextInput
+                      style={[styles.input, { flex: 1 }]}
+                      placeholder="Senha"
+                      placeholderTextColor="#999"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      secureTextEntry={!showPassword}
+                    />
+                    <TouchableOpacity
+                      onPress={toggleShowPassword}
+                      style={styles.eyeIcon}
+                    >
+                      <Ionicons
+                        name={showPassword ? "eye-outline" : "eye-off-outline"}
+                        size={20}
+                        color="#BB44CF"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  {errors.password && (
+                    <Text style={styles.errorText}>
+                      {errors.password.message}
+                    </Text>
+                  )}
+                </View>
+              )}
+            />
 
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
@@ -146,10 +130,13 @@ const LoginScreen = () => {
 
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={handleSignIn}
+              onPress={handleSubmit}
+              disabled={isSubmitting}
               style={styles.signInButton}
             >
-              <Text style={styles.signInText}>Entrar</Text>
+              <Text style={styles.signInText}>
+                {isSubmitting ? "Entrando..." : "Entrar"}
+              </Text>
             </TouchableOpacity>
 
             <View style={styles.divider}>
@@ -172,10 +159,8 @@ const LoginScreen = () => {
 
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Não tem uma conta? </Text>
-              <TouchableOpacity>
-                <Text style={styles.signUpLink} onPress={() => redirect()}>
-                  Cadastre-se
-                </Text>
+              <TouchableOpacity onPress={goToRegister}>
+                <Text style={styles.signUpLink}>Cadastre-se</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -354,6 +339,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
     textDecorationLine: "underline",
+  },
+  inputError: {
+    borderColor: "#ff4d4d",
+  },
+  errorText: {
+    color: "#ff4d4d",
+    fontSize: 12,
+    marginTop: 4,
+    marginLeft: 4,
   },
 });
 

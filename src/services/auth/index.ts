@@ -14,18 +14,15 @@ const AuthService = {
     queryFn: async (body: CreateUserFormType) => {
       const response = await api.post(`${path}`, body);
 
-      console.log(JSON.stringify(response.data, null, 2));
       return response.data as RegisterResponse;
     },
   },
 
   signIn: {
     queryFn: async (body: LoginUserFormType) => {
-      const response = await api.post(`${path}`, {
-        body: body,
-      });
+      const response = await api.post(`login`, body);
 
-      return response.data as any;
+      return response.data as RegisterResponse;
     },
   },
 

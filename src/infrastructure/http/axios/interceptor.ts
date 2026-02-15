@@ -50,6 +50,7 @@ api.registerInterceptTokenManager = (signOut) => {
 
         api.defaults.headers.common["Authorization"] =
           `Bearer ${newAccessToken}`;
+
         config.headers = { Authorization: `Bearer ${newAccessToken}` };
 
         queue.forEach((req) => req.onSuccess(newAccessToken));
