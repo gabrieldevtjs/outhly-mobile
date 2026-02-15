@@ -1,18 +1,61 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useAuthStore } from "../../../stores/auth";
+import { Ionicons } from "@expo/vector-icons";
+import { CategoryCard } from "../components/card";
 
+const cards = [
+  {
+    id: "passwords",
+    title: "Minhas Senhas",
+    subtitle: "124 itens salvos",
+    icon: "ellipsis-horizontal" as const,
+  },
+  {
+    id: "favorites",
+    title: "Favoritos",
+    subtitle: "Acesso prioritário",
+    icon: "star" as const,
+  },
+  {
+    id: "generator",
+    title: "Gerador",
+    subtitle: "Criar senha forte",
+    icon: "key" as const,
+  },
+  {
+    id: "leaks",
+    title: "Vazamentos",
+    subtitle: "Monitoramento",
+    icon: "shield" as const,
+  },
+];
 
 const Home = () => {
-  const { user, signOut } = useAuthStore();
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Olá, {user?.name} 👋</Text>
-      <Text style={styles.subtitle}>Você está logado!</Text>
+      <View style={styles.content}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Meus acessos</Text>
 
-      <TouchableOpacity style={styles.button} onPress={signOut}>
-        <Text style={styles.buttonText}>Sair</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.seeAllContent}>
+            <View style={styles.seeAllRow}>
+              <Text style={styles.sectionSubtitle}>Ver todos</Text>
+              <Ionicons name="arrow-forward" size={14} color="#F15EF1" />
+            </View>
+            <View style={styles.underline} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.grid}>
+          {cards.map((card) => (
+            <CategoryCard
+              key={card.id}
+              title={card.title}
+              subtitle={card.subtitle}
+              icon={card.icon}
+            />
+          ))}
+        </View>
+      </View>
     </View>
   );
 };
@@ -21,30 +64,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#121212",
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 24,
+    gap: 16,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
+        paddingHorizontal: 2,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "700",
+  sectionTitle: {
     color: "#fff",
-  },
-  subtitle: {
     fontSize: 16,
-    color: "rgba(255,255,255,0.6)",
+    fontWeight: "700",
   },
-  button: {
-    marginTop: 24,
-    backgroundColor: "#BB44CF",
-    paddingHorizontal: 32,
-    paddingVertical: 12,
+  seeAll: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  seeAllContent: {
+    gap: 4,
+  },
+  seeAllRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  underline: {
+    height: 1,
+    backgroundColor: "#F15EF1",
     borderRadius: 12,
   },
-  buttonText: {
-    color: "#fff",
+  sectionSubtitle: {
+    color: "#F15EF1",
+    fontSize: 14,
     fontWeight: "700",
-    fontSize: 16,
+  },
+
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
   },
 });
 

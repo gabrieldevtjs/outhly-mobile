@@ -34,7 +34,7 @@ const UseLoginViewModel = () => {
       useAuthStore.getState().setUser(user);
       notify("success", "Usuário logado com sucesso");
     } catch (error: any) {
-      notify("error", undefined, error); // corrigido
+      notify("error", undefined, error); 
       console.error(error);
     }
   };
@@ -44,7 +44,7 @@ const UseLoginViewModel = () => {
     errors,
     isSubmitting,
     showPassword,
-    toggleShowPassword: () => setShowPassword((prev) => !prev), // adicionado
+    toggleShowPassword: () => setShowPassword((prev) => !prev), 
     handleSubmit: handleSubmit(onSubmit),
     goToRegister: () => navigation.navigate("Register"),
   };
