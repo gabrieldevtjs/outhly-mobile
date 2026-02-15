@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AuthScreen from "../../../../screens/auth";
+import AuthScreen from "../../../../screens/auth/views";
 import LoginScreen from "../../../../screens/auth/views/login";
 import Sliders from "../../../../screens/sliders";
 import Splash from "../../../../screens/sliders/splash";

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { Controller } from "react-hook-form";
 import {
   View,
   Text,
@@ -11,24 +10,12 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-
 import { Ionicons } from "@expo/vector-icons";
+import { useRegisterViewModel } from "../../viewModels/register";
 
 const RegisterScreen = () => {
-  const navigation = useNavigation<any>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [focusedInput, setFocusedInput] = useState<string | null>(null);
+  const vm = useRegisterViewModel();
 
-  const handleSignIn = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
-  const redirect = () => {
-    navigation.navigate("Login");
-  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -46,123 +33,143 @@ const RegisterScreen = () => {
               resizeMode="cover"
             />
           </View>
-          <View style={styles.formContainer}>
-            <View style={styles.inputWrapper}>
-              <View
-                style={[
-                  styles.inputContainer,
-                  focusedInput === "email" && styles.inputFocused,
-                ]}
-              >
-                <Ionicons
-                  name="mail-outline"
-                  size={20}
-                  color={focusedInput === "email" ? "#1F41BB" : "#999"}
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="CPF"
-                  placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  onFocus={() => setFocusedInput("email")}
-                  onBlur={() => setFocusedInput(null)}
-                />
-              </View>
-            </View>
-            <View style={styles.inputWrapper}>
-              <View
-                style={[
-                  styles.inputContainer,
-                  focusedInput === "email" && styles.inputFocused,
-                ]}
-              >
-                <Ionicons
-                  name="mail-outline"
-                  size={20}
-                  color={focusedInput === "email" ? "#1F41BB" : "#999"}
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email"
-                  placeholderTextColor="#999"
-                  value={email}
-                  onChangeText={setEmail}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  onFocus={() => setFocusedInput("email")}
-                  onBlur={() => setFocusedInput(null)}
-                />
-              </View>
-            </View>
 
-            <View style={styles.inputWrapper}>
-              <View style={styles.inputContainer}>
-                <Ionicons
-                  name="lock-closed-outline"
-                  size={20}
-                  color={focusedInput === "password" ? "#1F41BB" : "#999"}
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={[styles.input, { flex: 1 }]}
-                  placeholder="Senha"
-                  placeholderTextColor="#999"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  onFocus={() => setFocusedInput("password")}
-                  onBlur={() => setFocusedInput(null)}
-                />
-                <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
-                >
-                  <Ionicons
-                    name={showPassword ? "eye-outline" : "eye-off-outline"}
-                    size={20}
-                    color="#BB44CF"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+          <View style={styles.formContainer}>
+            <Controller
+              control={vm.control}
+              name="name"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={styles.inputWrapper}>
+                  <View
+                    style={[
+                      styles.inputContainer,
+                      vm.errors.name && styles.inputError,
+                    ]}
+                  >
+                    <Ionicons
+                      name="person-outline"
+                      size={20}
+                      color="#999"
+                      style={styles.inputIcon}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Nome"
+                      placeholderTextColor="#999"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                    />
+                  </View>
+                  {vm.errors.name && (
+                    <Text style={styles.errorText}>
+                      {vm.errors.name.message}
+                    </Text>
+                  )}
+                </View>
+              )}
+            />
+
+            <Controller
+              control={vm.control}
+              name="email"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={styles.inputWrapper}>
+                  <View
+                    style={[
+                      styles.inputContainer,
+                      vm.errors.email && styles.inputError,
+                    ]}
+                  >
+                    <Ionicons
+                      name="mail-outline"
+                      size={20}
+                      color="#999"
+                      style={styles.inputIcon}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="E-mail"
+                      placeholderTextColor="#999"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                    />
+                  </View>
+                  {vm.errors.email && (
+                    <Text style={styles.errorText}>
+                      {vm.errors.email.message}
+                    </Text>
+                  )}
+                </View>
+              )}
+            />
+
+            <Controller
+              control={vm.control}
+              name="password"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={styles.inputWrapper}>
+                  <View
+                    style={[
+                      styles.inputContainer,
+                      vm.errors.password && styles.inputError,
+                    ]}
+                  >
+                    <Ionicons
+                      name="lock-closed-outline"
+                      size={20}
+                      color="#999"
+                      style={styles.inputIcon}
+                    />
+                    <TextInput
+                      style={[styles.input, { flex: 1 }]}
+                      placeholder="Senha"
+                      placeholderTextColor="#999"
+                      value={value}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      secureTextEntry={!vm.showPassword}
+                    />
+                    <TouchableOpacity
+                      onPress={vm.toggleShowPassword}
+                      style={styles.eyeIcon}
+                    >
+                      <Ionicons
+                        name={
+                          vm.showPassword ? "eye-outline" : "eye-off-outline"
+                        }
+                        size={20}
+                        color="#BB44CF"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  {vm.errors.password && (
+                    <Text style={styles.errorText}>
+                      {vm.errors.password.message}
+                    </Text>
+                  )}
+                </View>
+              )}
+            />
 
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={handleSignIn}
+              onPress={vm.handleSubmit}
+              disabled={vm.isSubmitting}
               style={styles.signInButton}
             >
-              <Text style={styles.signInText}>Cadastrar</Text>
+              <Text style={styles.signInText}>
+                {vm.isSubmitting ? "Cadastrando..." : "Cadastrar"}
+              </Text>
             </TouchableOpacity>
-
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OU</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <View style={styles.socialContainer}>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-google" size={24} color="#FFF" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-apple" size={24} color="#FFF" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-facebook" size={24} color="#FFF" />
-              </TouchableOpacity>
-            </View>
 
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Já tem uma conta? </Text>
-              <TouchableOpacity>
-                <Text style={styles.signUpLink} onPress={() => redirect()}>
-                  Login
-                </Text>
+              <TouchableOpacity onPress={vm.goToLogin}>
+                <Text style={styles.signUpLink}>Login</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -341,6 +348,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
     textDecorationLine: "underline",
+  },
+  inputError: {
+    borderColor: "#ff4d4d",
+  },
+  errorText: {
+    color: "#ff4d4d",
+    fontSize: 12,
+    marginTop: 4,
+    marginLeft: 4,
   },
 });
 
