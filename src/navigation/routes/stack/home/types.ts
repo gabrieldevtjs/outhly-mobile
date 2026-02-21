@@ -1,3 +1,3 @@
-export type AppRoutesTypes = { 
+export type HomeRoutesType = { 
 	Home: undefined
 }

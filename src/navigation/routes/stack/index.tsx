@@ -1,17 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootRoutesTypes } from "./types";
-import AppRoutes from "./home";
+import HomeRoutes from "./home";
 import SectionRoutes from "./sections";
 
 const Stack = createNativeStackNavigator<RootRoutesTypes>();
 
-const RootRoutes = () => {
+const AppRoutes = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="App" component={AppRoutes} />
+      <Stack.Screen name="Home" component={HomeRoutes} />
       <Stack.Screen name="Sections" component={SectionRoutes} />
     </Stack.Navigator>
   );
 };
 
-export default RootRoutes;
+export default AppRoutes;

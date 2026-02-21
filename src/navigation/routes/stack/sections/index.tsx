@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { SectionRoutesTypes } from "./types";
+import { SectionRoutesType } from "./types";
 import { SenhaViewSection } from "../../../../screens/sections/senhas/view";
 import { HeaderBack } from "@components/HeaderBack";
 
-const Stack = createNativeStackNavigator<SectionRoutesTypes>();
+const Stack = createNativeStackNavigator<SectionRoutesType>();
 
 const SectionRoutes = () => {
   return (

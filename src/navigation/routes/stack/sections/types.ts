@@ -1,3 +1,3 @@
-export type SectionRoutesTypes = { 
+export type SectionRoutesType = { 
 	Senhas: undefined
 }
