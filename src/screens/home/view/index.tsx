@@ -33,8 +33,7 @@ const cards = [
     icon: "shield" as const,
     navigate: "Senhas" as const, // ✅
   },
-] as const; // ✅ ou coloca aqui no final do array
-
+] as const;
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -73,8 +72,6 @@ const Home = () => {
                 />
               ))}
             </View>
-
-            <View> </View>
           </>
         )}
       </View>

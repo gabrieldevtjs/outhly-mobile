@@ -1,3 +1,4 @@
+import { theme } from "@common/utils/theme";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
@@ -64,7 +65,7 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1F41BB",
+    backgroundColor: theme.colors.background,
   },
   productImage: {
     width: 300,

@@ -1,67 +1,75 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { HeaderBack } from "../../../../components/HeaderBack";
+import { Card } from "@components/Card";
+import { CardSenha } from "../components/card";
+import { Fab } from "@components/Fab";
+import { theme } from "@common/utils/theme";
 
 const SenhaViewSection = () => {
+  const mockData = [
+    {
+      id: "teste1",
+      icon: "",
+      title: "Google",
+      subtitle: "jose.gabriel@gmai.com",
+    },
+    {
+      id: "teste2",
+      icon: "",
+      title: "Netflix",
+      subtitle: "familia_gabriel",
+    },
+    {
+      id: "teste3",
+      icon: "",
+      title: "Instagram",
+      subtitle: "@jose_gabriel",
+    },
+    {
+      id: "teste4",
+      icon: "",
+      title: "Spotify",
+      subtitle: "jose.g_premium",
+    },
+    {
+      id: "teste5",
+      icon: "",
+      title: "GitHub",
+      subtitle: "gabriel-dev",
+    },
+  ];
+
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text>oii</Text>
+    <>
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          {mockData.map((item) => (
+            <CardSenha
+              key={item.id}
+              title={item.title}
+              subtitle={item.subtitle}
+            />
+          ))}
+        </ScrollView>
       </View>
-    </View>
+      <Fab />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: theme.colors.background,
   },
   content: {
-    flex: 1,
     paddingHorizontal: 24,
     paddingTop: 24,
+    borderRadius: 40,
     gap: 16,
   },
-  sectionHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 2,
-  },
-  sectionTitle: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  seeAll: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  seeAllContent: {
-    gap: 4,
-  },
-  seeAllRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  underline: {
-    height: 1,
-    backgroundColor: "#F15EF1",
-    borderRadius: 12,
-  },
-  sectionSubtitle: {
-    color: "#F15EF1",
-    fontSize: 14,
-    fontWeight: "700",
-  },
-
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 12,
-  },
 });
-
 export { SenhaViewSection };

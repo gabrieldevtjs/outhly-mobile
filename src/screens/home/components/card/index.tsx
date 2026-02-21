@@ -3,16 +3,16 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AppRoutesTypes } from "../../../../navigation/routes/stack/home/types";
+import { HomeRoutesType } from "../../../../navigation/routes/stack/home/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootRoutesTypes } from "../../../../navigation/routes/stack/types";
-import { SectionRoutesTypes } from "../../../../navigation/routes/stack/sections/types";
+import { SectionRoutesType } from "../../../../navigation/routes/stack/sections/types";
 
 type Props = {
   title: string;
   subtitle: string;
   icon?: keyof typeof Ionicons.glyphMap;
-  url: keyof SectionRoutesTypes;
+  url: keyof SectionRoutesType;
 };
 
 const CategoryCard = ({
@@ -28,7 +28,7 @@ const CategoryCard = ({
 
   const handleNavigate = () => {
     navigation.navigate("Sections", {
-      screen: url, 
+      screen: url,
     });
   };
 
