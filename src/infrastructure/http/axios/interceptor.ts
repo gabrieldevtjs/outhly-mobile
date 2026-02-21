@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
-import { QueueItem } from "./types";
+import { QueueRequests } from "./types";
 import { api } from "./api";
 import { AuthService } from "../../../services/auth";
 import { AuthStorage } from "../../storage/secure";
 
-let queue: QueueItem[] = [];
+let queue: QueueRequests[] = [];
 let isRefreshing = false;
 
 api.registerInterceptTokenManager = (signOut) => {

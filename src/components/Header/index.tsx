@@ -2,25 +2,37 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthStore } from "../../stores/auth";
+import { useEffect, useState } from "react";
+import { HeaderSkeleton } from "../../skeletons/header";
 
 const Header = () => {
   const { user } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.info}>
-          <Text style={styles.greeting}>
-            Olá, <Text style={{ color: "#F15EF1" }}>{user?.name}</Text>
-          </Text>
+      {isLoading ? (
+        <HeaderSkeleton />
+      ) : (
+        <View style={styles.row}>
+          <View style={styles.info}>
+            <Text style={styles.greeting}>
+              Olá, <Text style={{ color: "#F15EF1" }}>{user?.name}</Text>
+            </Text>
 
-          <Text style={styles.badgeText}>Bem vindo ao seu cofre</Text>
+            <Text style={styles.badgeText}>Bem vindo ao seu cofre</Text>
+          </View>
+
+          <TouchableOpacity activeOpacity={0.7}>
+            <Ionicons name="person-circle" size={38} color="#fff" />
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity activeOpacity={0.7}>
-          <Ionicons name="person-circle" size={38} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -35,6 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  
   },
   info: {
     flex: 1,

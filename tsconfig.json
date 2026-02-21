@@ -4,7 +4,9 @@
     "strict": true,
     "experimentalDecorators": true,
     "paths": {
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@screens/*": ["./src/screens/*"],
     }
   }
 }

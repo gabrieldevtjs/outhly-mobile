@@ -1,10 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../../../../screens/home/view";
-import { Header } from "../../../../components/Header";
+import { AppRoutesTypes } from "./types";
+import { Header } from "@components/Header";
+import Home from "@screens/home/view";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<AppRoutesTypes>();
 
-const HomeRoutes = () => {
+const AppRoutes = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -22,4 +23,4 @@ const HomeRoutes = () => {
   );
 };
 
-export default HomeRoutes;
+export default AppRoutes;

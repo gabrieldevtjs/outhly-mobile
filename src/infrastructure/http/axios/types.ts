@@ -6,9 +6,9 @@ type ApiInstance = AxiosInstance & {
   registerInterceptTokenManager: (signOut: SignOut) => () => void;
 };
 
-type QueueItem = {
+type QueueRequests = {
   onSuccess: (token: string) => void;
   onFailure: (error: AxiosError) => void;
 };
 
-export { SignOut, ApiInstance, QueueItem };
+export { SignOut, ApiInstance, QueueRequests };

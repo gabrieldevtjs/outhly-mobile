@@ -2,27 +2,41 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useWindowDimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { AppRoutesTypes } from "../../../../navigation/routes/stack/home/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootRoutesTypes } from "../../../../navigation/routes/stack/types";
+import { SectionRoutesTypes } from "../../../../navigation/routes/stack/sections/types";
 
 type Props = {
   title: string;
   subtitle: string;
   icon?: keyof typeof Ionicons.glyphMap;
-  onPress?: () => void;
+  url: keyof SectionRoutesTypes;
 };
 
 const CategoryCard = ({
   title,
   subtitle,
   icon = "ellipsis-horizontal",
-  onPress,
+  url,
 }: Props) => {
   const { width } = useWindowDimensions();
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootRoutesTypes>>();
+
+  const handleNavigate = () => {
+    navigation.navigate("Sections", {
+      screen: url, 
+    });
+  };
 
   return (
     <TouchableOpacity
       style={[styles.container, { width: (width - 48 - 12) / 2 }]}
-      onPress={onPress}
-      activeOpacity={onPress ? 0.7 : 1}
+      onPress={handleNavigate}
+      // activeOpacity={handleNavigate ? 0.7 : 1}
     >
       <View style={styles.iconBox}>
         <Ionicons name={icon} size={20} color="#F15EF1" />
