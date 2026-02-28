@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { QueueRequests } from "./types";
 import { api } from "./api";
-import { AuthService } from "../../../services/auth";
-import { AuthStorage } from "../../storage/secure";
+import { AuthServiceHttp } from "../../../services/auth/http";
+import { AuthStorage } from "../../storage/keychan/user";
 
 let queue: QueueRequests[] = [];
 let isRefreshing = false;
@@ -42,7 +42,7 @@ api.registerInterceptTokenManager = (signOut) => {
       try {
         const {
           data: { tokens },
-        } = await AuthService.refresh.queryFn();
+        } = await AuthServiceHttp.refresh.queryFn();
 
         const { newAccessToken, newRefreshToken } = tokens;
 

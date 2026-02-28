@@ -1,5 +1,5 @@
-import { ApiResponseTypeDefault } from "../../common/types/response";
-import { api } from "../../infrastructure/http/axios/api";
+import { ApiResponseTypeDefault } from "../../../common/types/response";
+import { api } from "../../../infrastructure/http/axios/api";
 import {
   CreateUserFormType,
   LoginUserFormType,
@@ -9,7 +9,7 @@ import {
 
 const path = "register";
 
-const AuthService = {
+const AuthServiceHttp = {
   register: {
     queryFn: async (body: CreateUserFormType) => {
       const response = await api.post(`${path}`, body);
@@ -17,7 +17,6 @@ const AuthService = {
       return response.data as RegisterResponse;
     },
   },
-
   signIn: {
     queryFn: async (body: LoginUserFormType) => {
       const response = await api.post(`login`, body);
@@ -35,4 +34,4 @@ const AuthService = {
   },
 };
 
-export { AuthService };
+export { AuthServiceHttp };

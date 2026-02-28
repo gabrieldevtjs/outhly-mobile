@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginType, SchemaLogin } from "../model/zod";
 import { useMutation } from "@tanstack/react-query";
-import { AuthService } from "../../../../services/auth";
+import { AuthServiceHttp } from "../../../../services/auth/http";
 import { useAuthStore } from "../../../../stores/auth";
-import { AuthStorage } from "../../../../infrastructure/storage/secure";
+import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
 import { notify } from "../../../../common/utils/notify";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -22,19 +22,21 @@ const UseLoginViewModel = () => {
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: (body: LoginType) => AuthService.signIn.queryFn(body),
+    mutationFn: (body: LoginType) => AuthServiceHttp.signIn.queryFn(body),
   });
 
   const onSubmit = async (body: LoginType) => {
     try {
       const response = await mutateAsync(body);
-      const { data: { user, tokens } } = response;
+      const {
+        data: { user, tokens },
+      } = response;
 
       await AuthStorage.save(tokens.accessToken, tokens.refreshToken);
       useAuthStore.getState().setUser(user);
       notify("success", "Usuário logado com sucesso");
     } catch (error: any) {
-      notify("error", undefined, error); 
+      notify("error", undefined, error);
       console.error(error);
     }
   };
@@ -44,7 +46,7 @@ const UseLoginViewModel = () => {
     errors,
     isSubmitting,
     showPassword,
-    toggleShowPassword: () => setShowPassword((prev) => !prev), 
+    toggleShowPassword: () => setShowPassword((prev) => !prev),
     handleSubmit: handleSubmit(onSubmit),
     goToRegister: () => navigation.navigate("Register"),
   };

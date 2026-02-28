@@ -11,7 +11,7 @@ type Props = {
 };
 
 const HeaderBack = ({ title }: Props) => {
-  const { user } = useAuthStore();
+  const { user ,signOut} = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();

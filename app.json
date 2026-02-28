@@ -29,6 +29,12 @@
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "ALL"
+        }
       ]
     ],
     "ios": {

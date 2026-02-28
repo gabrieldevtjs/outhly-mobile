@@ -1,12 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { HomeRoutesType } from "../../../../navigation/routes/stack/home/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootRoutesTypes } from "../../../../navigation/routes/stack/types";
-import { SectionRoutesType } from "../../../../navigation/routes/stack/sections/types";
+import { RootRoutesTypes, SectionRoutesType } from "../../../../navigation/routes/stack/types";
 
 type Props = {
   title: string;
