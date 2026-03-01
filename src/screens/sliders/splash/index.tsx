@@ -1,28 +1,26 @@
 import { View, StyleSheet, Animated } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef } from "react";
 import { authenticateWithBiometrics } from "@common/hooks/useBiometric";
-// import { AuthService } from "../services/auth";
+import { useAuthStore } from "../../../stores/auth";
 
-const Splash = () => {
-  const navigation = useNavigation<any>();
+interface Props {
+  onFinish: () => void;
+}
+
+const Splash = ({ onFinish }: Props) => {
   const imagePosition = useRef(new Animated.Value(0)).current;
+  const { user } = useAuthStore();
 
   const handleAuth = async () => {
-    const deviceToken = await authenticateWithBiometrics();
+    
+      const deviceToken = await authenticateWithBiometrics();
 
-    if (!deviceToken) {
-      navigation.navigate("Login");
-      return;
-    }
+      if (!deviceToken) {
+        useAuthStore.getState().signOut();
+      }
+    
 
-    try {
-      // const deviceId = await DeviceInfo.getUniqueId();
-      // await AuthService.renewWithDevice.queryFn({ deviceId, deviceToken });
-      navigation.navigate("Home");
-    } catch {
-      navigation.navigate("Login");
-    }
+    onFinish();
   };
 
   useEffect(() => {

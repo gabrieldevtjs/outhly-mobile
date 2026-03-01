@@ -1,16 +1,13 @@
 import { ApiResponseTypeDefault } from "../../../common/types/response";
-import { api } from "../../../infrastructure/http/axios/api";
-import {
+import { api } from "../../../infrastructure/http/axios/interceptor";
 
-  RegisterDeviceType,
-
-} from "./types";
-
+import { RegisterDeviceType } from "./types";
 
 const AuthServiceBiometric = {
   registerDevice: {
     queryFn: async (body: RegisterDeviceType) => {
-      const response = await api.post(`register-device`, body);
+      console.log("chamando");
+      const response = await api.post(`biometric/register-device`, body);
 
       return response.data as any;
     },
@@ -18,7 +15,11 @@ const AuthServiceBiometric = {
 
   validateTokenBiometric: {
     queryFn: async (body: RegisterDeviceType) => {
-      const response = await api.post(`validate-token-biometric`, body);
+      console.log("chamando");
+      const response = await api.post(
+        `biometric/validate-token-biometric`,
+        body,
+      );
 
       return response.data as any;
     },

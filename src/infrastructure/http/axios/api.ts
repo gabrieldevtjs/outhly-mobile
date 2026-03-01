@@ -1,30 +1,9 @@
-import axios from "axios";
-import { ApiInstance } from "./types";
+import { create } from "apisauce";
+import { apiAxiosInstance } from "./instance.api";
 
-const ENVIRONMENTS = {
-  DEV: process.env.EXPO_PUBLIC_API_AUTLY_DEV,
-  LOCAL: process.env.EXPO_PUBLIC_API_AUTLY_LOCAL,
-} as const;
+const api = create({
+  axiosInstance: apiAxiosInstance,
+  baseURL: apiAxiosInstance.defaults.baseURL,
+});
 
-const getCurrentEnv = () => {
-  const env = process.env.EXPO_PUBLIC_ENVIRONMENT as keyof typeof ENVIRONMENTS;
-
-  return ENVIRONMENTS[env] ?? ENVIRONMENTS.LOCAL;
-};
-
-export const createApi = () => {
-  const baseURL = getCurrentEnv();
-
-  if (!baseURL) {
-    throw new Error("BaseURL não definida. Verifique as envs do Expo.");
-  }
-
-  return axios.create({
-    baseURL,
-    timeout: 10000,
-  });
-};
-
-const api = createApi() as ApiInstance;
-
-export { api };
+export default api;

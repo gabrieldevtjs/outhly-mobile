@@ -14,13 +14,6 @@ const AuthRoutes = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="splash"
-        component={Splash}
-        options={{
-          title: "splash",
-        }}
-      />
 
       <Stack.Screen
         name="sliders"

@@ -9,6 +9,7 @@ import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
 import { useAuthStore } from "../../../../stores/auth";
 import { notify } from "../../../../common/utils/notify";
 import { setupBiometrics } from "@common/hooks/useBiometric";
+import { api } from "../../../../infrastructure/http/axios/api";
 
 export function useRegisterViewModel() {
   const navigation = useNavigation<any>();
@@ -37,6 +38,7 @@ export function useRegisterViewModel() {
       await AuthStorage.save(tokens.accessToken, tokens.refreshToken);
 
       useAuthStore.getState().setUser(user);
+      
       await setupBiometrics();
       notify("success", "Usuário criado com sucesso");
     } catch (error: any) {

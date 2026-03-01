@@ -13,6 +13,7 @@ const setupBiometrics = async () => {
 
   const biometryRegistred = await BiometricStorage.getBiometricRegistred();
 
+  console.log(biometryRegistred)
   if (!biometryRegistred) return;
 
   const alreadyRegistered = await BiometricStorage.getDeviceToken();
@@ -24,10 +25,10 @@ const setupBiometrics = async () => {
 
   try {
     await BiometricStorage.saveDeviceToken(deviceToken);
-    // await AuthServiceBiometric.registerDevice.queryFn({
-    //   deviceId,
-    //   deviceToken,
-    // });
+    await AuthServiceBiometric.registerDevice.queryFn({
+      deviceId,
+      deviceToken,
+    });
   } catch {
     return;
   }
@@ -36,9 +37,8 @@ const setupBiometrics = async () => {
 const authenticateWithBiometrics = async (): Promise<string | false> => {
   try {
     const deviceToken = await BiometricStorage.getDeviceToken();
-
     if (!deviceToken) return false;
-
+    console.log(true);
     return deviceToken;
   } catch {
     return false;

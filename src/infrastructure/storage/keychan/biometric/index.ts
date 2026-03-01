@@ -12,6 +12,10 @@ const BiometricStorage = {
   getDeviceToken: async (): Promise<string | null> => {
     const credentials = await Keychain.getGenericPassword({
       service: process.env.EXPO_BUNDLER_NAME,
+      authenticationPrompt: {
+        title: "Autenticação necessária",
+        cancel: "Cancelar",
+      },
     });
     return credentials ? credentials.password : null;
   },

@@ -6,6 +6,7 @@ import { AuthServiceHttp } from "../../../../services/auth/http";
 import { useAuthStore } from "../../../../stores/auth";
 import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
 import { notify } from "../../../../common/utils/notify";
+import { api } from "../../../../infrastructure/http/axios/api";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
@@ -33,7 +34,9 @@ const UseLoginViewModel = () => {
       } = response;
 
       await AuthStorage.save(tokens.accessToken, tokens.refreshToken);
+      api.defaults.headers.common["Authorization"] = `Bearer ${tokens.accessToken}`;
       useAuthStore.getState().setUser(user);
+  
       notify("success", "Usuário logado com sucesso");
     } catch (error: any) {
       notify("error", undefined, error);

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { HeaderSkeleton } from "../../skeletons/header";
 
 const Header = () => {
-  const { user } = useAuthStore();
+  const { user , signOut} = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Header = () => {
             <Text style={styles.badgeText}>Bem vindo ao seu cofre</Text>
           </View>
 
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => signOut}>
             <Ionicons name="person-circle" size={38} color="#fff" />
           </TouchableOpacity>
         </View>

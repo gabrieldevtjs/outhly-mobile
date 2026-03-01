@@ -22,15 +22,6 @@ const AppRoutes = () => {
         freezeOnBlur: true,
       }}
     >
-      {/* <Stack.Screen
-        name="splash"
-        component={Splash}
-        options={{
-          title: "splash",
-          headerShown: false,
-        }}
-      /> */}
-
       <Stack.Screen
         name="Home"
         component={Home}
