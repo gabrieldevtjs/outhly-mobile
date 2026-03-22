@@ -8,7 +8,6 @@
       "@components/*": ["./src/components/*"],
       "@screens/*": ["./src/screens/*"],
       "@common/*": ["./src/common/*"],
-      "@navigation/*": ["./src/navigation/*"],
       "@api/*": ["./src/infrastructure/config/http/axios/*"]
     }
   }

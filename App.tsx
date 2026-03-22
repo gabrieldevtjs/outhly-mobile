@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import Container from "./src/navigation/container";
+
 import { useEffect } from "react";
 import "./src/infrastructure/config/reactotron";
+import Container from "./src/routes/index";
 
 SplashScreen.preventAutoHideAsync();
 
