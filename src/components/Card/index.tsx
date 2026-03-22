@@ -1,6 +1,6 @@
-import { theme } from "@common/utils/theme";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { useTheme } from "@common/hooks/useTheme";
 
 type CardPaperProps = {
   children: React.ReactNode;
@@ -8,13 +8,18 @@ type CardPaperProps = {
 };
 
 const Card = ({ children, style }: CardPaperProps) => {
-  return <View style={[styles.container, style]}>{children}</View>;
+  const { theme } = useTheme();
+
+  return (
+    <View style={[styles.container, { backgroundColor: theme.colors.card }, style]}>
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "#1A1A1A",
     borderRadius: 12,
   },
 });

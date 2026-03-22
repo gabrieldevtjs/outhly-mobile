@@ -1,15 +1,14 @@
-import { theme } from "@common/utils/theme";
+import { useTheme } from "@common/hooks/useTheme";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Theme } from "@common/theme";
 
 const AuthScreen = () => {
   const navigation = useNavigation<any>();
+  const { theme } = useTheme();
+  const styles = makeStyles(theme.colors);
 
   const redirectLogin = () => {
-    navigation.navigate("Login");
-  };
-
-  const redireactLogin = () => {
     navigation.navigate("Login");
   };
 
@@ -62,53 +61,54 @@ const AuthScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  productImage: {
-    width: 300,
-    height: 300,
-    borderRadius: 8,
-  },
-  section: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  sectionContent: {
-    gap: 12,
-    alignItems: "center",
-    paddingHorizontal: 10,
-  },
-  sectionButton: {
-    paddingHorizontal: 26,
-    gap: 20,
-  },
-  buttonContainer: {
-    flex: 1,
-    borderRadius: 12,
-    borderWidth: 1,
-    paddingHorizontal: 26,
-    paddingVertical: 12,
-  },
-  title: {
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 28,
-    color: "#1F41BB",
-  },
-  subtTitle: {
-    textAlign: "center",
-    fontSize: 14,
-    color: "#666",
-  },
-  button: {
-    fontWeight: "700",
-    textAlign: "center",
-  },
-});
+const makeStyles = (colors: Theme["colors"]) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    productImage: {
+      width: 300,
+      height: 300,
+      borderRadius: 8,
+    },
+    section: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      paddingHorizontal: 20,
+    },
+    sectionContent: {
+      gap: 12,
+      alignItems: "center",
+      paddingHorizontal: 10,
+    },
+    sectionButton: {
+      paddingHorizontal: 26,
+      gap: 20,
+    },
+    buttonContainer: {
+      flex: 1,
+      borderRadius: 12,
+      borderWidth: 1,
+      paddingHorizontal: 26,
+      paddingVertical: 12,
+    },
+    title: {
+      textAlign: "center",
+      fontWeight: "700",
+      fontSize: 28,
+      color: "#1F41BB",
+    },
+    subtTitle: {
+      textAlign: "center",
+      fontSize: 14,
+      color: "#666",
+    },
+    button: {
+      fontWeight: "700",
+      textAlign: "center",
+    },
+  });
 
 export default AuthScreen;

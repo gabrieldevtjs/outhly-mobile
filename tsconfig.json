@@ -9,7 +9,7 @@
       "@screens/*": ["./src/screens/*"],
       "@common/*": ["./src/common/*"],
       "@navigation/*": ["./src/navigation/*"],
-      "@api/*": ["./src/infrastructure/http/axios/*"]
+      "@api/*": ["./src/infrastructure/config/http/axios/*"]
     }
   }
 }

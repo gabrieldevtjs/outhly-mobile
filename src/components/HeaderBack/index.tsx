@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthStore } from "../../stores/auth";
+import { useAuthStore } from "../../common/stores/auth";
 import { useEffect, useState } from "react";
-import { HeaderSkeleton } from "../../skeletons/header";
+import { HeaderSkeleton } from "../../common/skeletons/header";
 import { useNavigation } from "@react-navigation/native";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const HeaderBack = ({ title }: Props) => {
-  const { user ,signOut} = useAuthStore();
+  const { user, signOut } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const HeaderBack = ({ title }: Props) => {
           >
             <Ionicons name="arrow-back" size={22} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.title}>{"Senhas"}</Text>
+          <Text style={styles.title}>{title}</Text>
           <View style={styles.placeholder} />
         </View>
       </View>

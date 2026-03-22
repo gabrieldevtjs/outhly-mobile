@@ -6,10 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterType, SchemaRegister } from "../model/zod";
 import { AuthServiceHttp } from "../../../../services/auth/http";
 import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
-import { useAuthStore } from "../../../../stores/auth";
-import { notify } from "../../../../common/utils/notify";
+import { useAuthStore } from "../../../../common/stores/auth";
+import { notify } from "../../../../common/notify";
 import { setupBiometrics } from "@common/hooks/useBiometric";
-import { api } from "../../../../infrastructure/http/axios/api";
+import { BiometricStorage } from "../../../../infrastructure/storage/keychan/biometric";
 
 export function useRegisterViewModel() {
   const navigation = useNavigation<any>();
@@ -38,7 +38,7 @@ export function useRegisterViewModel() {
       await AuthStorage.save(tokens.accessToken, tokens.refreshToken);
 
       useAuthStore.getState().setUser(user);
-      
+      await BiometricStorage.clear();
       await setupBiometrics();
       notify("success", "Usuário criado com sucesso");
     } catch (error: any) {

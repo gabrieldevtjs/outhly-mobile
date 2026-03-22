@@ -1,5 +1,5 @@
 import { create } from "apisauce";
-import { apiAxiosInstance } from "./instance.api";
+import { apiAxiosInstance } from "./interceptor";
 
 const api = create({
   axiosInstance: apiAxiosInstance,

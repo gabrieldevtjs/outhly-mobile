@@ -1,74 +1,105 @@
-// import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-// import { Ionicons } from "@expo/vector-icons";
-// import { CategoryCard } from "../components/card";
-// import { CategoryCardSkeleton } from "../../../skeletons/home";
-// import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useAuthStore } from "../../../common/stores/auth";
+import { notify } from "@common/notify";
+import { YStack, XStack, ZStack } from "tamagui";
 
+const CONFIG_ITEMS = [
+  { label: "Perfil", section: true },
+  { label: "Editar perfil" },
+  { label: "Alterar senha master" },
 
+  { label: "Segurança", section: true },
+  { label: "Biometria" },
+  { label: "Auto-lock" },
 
-// const Config = () => {
-//   const [isLoading, setIsLoading] = useState(true);
+  { label: "Aparência", section: true },
+  { label: "Tema" },
 
-//   useEffect(() => {
-//     const timer = setTimeout(() => setIsLoading(false), 3000);
-//     return () => clearTimeout(timer);
-//   }, []);
+  { label: "Sobre", section: true },
+  { label: "Versão do app" },
+  { label: "Política de privacidade" },
+];
 
-//   return (
-  
-//   );
-// };
+const Config = () => {
+  const navigation = useNavigation<any>();
+  const { signOut } = useAuthStore();
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   content: {
-//     flex: 1,
-//     paddingHorizontal: 24,
-//     paddingTop: 24,
-//     gap: 16,
-//   },
-//   sectionHeader: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     paddingHorizontal: 2,
-//   },
-//   sectionTitle: {
-//     color: "#fff",
-//     fontSize: 16,
-//     fontWeight: "700",
-//   },
-//   seeAll: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     gap: 4,
-//   },
-//   seeAllContent: {
-//     gap: 4,
-//   },
-//   seeAllRow: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     gap: 4,
-//   },
-//   underline: {
-//     height: 1,
-//     backgroundColor: "#F15EF1",
-//     borderRadius: 12,
-//   },
-//   sectionSubtitle: {
-//     color: "#F15EF1",
-//     fontSize: 14,
-//     fontWeight: "700",
-//   },
+  const logout = () => {
+    (signOut(), navigation.redirect("Login"));
+    notify("success", "Usuário Deslogado");
+  };
 
-//   grid: {
-//     flexDirection: "row",
-//     flexWrap: "wrap",
-//     gap: 12,
-//   },
-// });
+  return (
+    <View style={styles.container}>
+      <View style={styles.menu}>
+        {CONFIG_ITEMS.map((item, index) =>
+          item.section ? (
+            <Text key={index} style={styles.section}>
+              {item.label}
+            </Text>
+          ) : (
+            <TouchableOpacity key={index} style={styles.item}>
+              <Text style={styles.itemText}>{item.label}</Text>
+            </TouchableOpacity>
+          ),
+        )}
+      </View>
 
-// export default Home;
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
+          <Text style={styles.logoutText}>Sair da conta</Text>
+        </TouchableOpacity>
+      </View>
+
+      <YStack gap="$4">
+        <Text>Item 1</Text>
+        <Text>Item 2</Text>
+      </YStack>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+  },
+  menu: {
+    flex: 1,
+  },
+  section: {
+    color: "#888",
+    fontSize: 12,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginTop: 24,
+    marginBottom: 4,
+  },
+  item: {
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: "#222",
+  },
+  itemText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  footer: {
+    marginTop: "auto",
+  },
+  logoutButton: {
+    backgroundColor: "#ff3b30",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  logoutText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});
+
+export default Config;

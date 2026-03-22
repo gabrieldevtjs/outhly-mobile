@@ -1,4 +1,4 @@
-import api from "@api/api";
+import api from "../../../infrastructure/config/http/axios/api";
 import { ApiResponseTypeDefault } from "../../../common/types/response";
 
 import {
@@ -21,6 +21,7 @@ const AuthServiceHttp = {
 
   signIn: {
     queryFn: async (body: LoginUserFormType) => {
+
       const response = await api.post(`login`, body);
 
       return response.data as RegisterResponse;

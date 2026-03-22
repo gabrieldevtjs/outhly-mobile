@@ -1,5 +1,6 @@
+import api from "@api/api";
 import { ApiResponseTypeDefault } from "../../common/types/response";
-import { api } from "../../infrastructure/http/axios/api";
+
 import {
   CreateUserFormType,
   LoginUserFormType,

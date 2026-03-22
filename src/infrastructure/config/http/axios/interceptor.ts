@@ -1,8 +1,9 @@
 import { AxiosError } from "axios";
 import { QueueRequests } from "./types";
 import { apiAxiosInstance } from "./instance.api";
-import { AuthServiceHttp } from "../../../services/auth/http";
-import { AuthStorage } from "../../storage/keychan/user";
+import { AuthServiceHttp } from "../../../../services/auth/http";
+import { AuthStorage } from "../../../storage/keychan/user";
+import { DEFAULT_MESSAGES_API } from "@common/message";
 
 let queue: QueueRequests[] = [];
 let isRefreshing = false;
@@ -12,6 +13,13 @@ apiAxiosInstance.registerInterceptTokenManager = (signOut) => {
     (response) => response,
 
     async (error) => {
+      const problem = error.response?.problem;
+      const backMessage = error.response?.data?.message;
+
+      error.message =
+        backMessage || DEFAULT_MESSAGES_API[problem] || "Erro inesperado";
+
+
       if (error.response?.status !== 401) {
         return Promise.reject(error);
       }

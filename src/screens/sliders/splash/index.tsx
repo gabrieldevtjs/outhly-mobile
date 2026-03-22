@@ -1,7 +1,7 @@
 import { View, StyleSheet, Animated } from "react-native";
 import { useEffect, useRef } from "react";
 import { authenticateWithBiometrics } from "@common/hooks/useBiometric";
-import { useAuthStore } from "../../../stores/auth";
+import { useAuthStore } from "../../../common/stores/auth";
 
 interface Props {
   onFinish: () => void;
@@ -12,14 +12,11 @@ const Splash = ({ onFinish }: Props) => {
   const { user } = useAuthStore();
 
   const handleAuth = async () => {
-    
-      const deviceToken = await authenticateWithBiometrics();
+    const deviceToken = await authenticateWithBiometrics();
 
-      if (!deviceToken) {
-        useAuthStore.getState().signOut();
-      }
-    
-
+    if (!deviceToken) {
+      useAuthStore.getState().signOut();
+    }
     onFinish();
   };
 
@@ -37,7 +34,10 @@ const Splash = ({ onFinish }: Props) => {
     <View style={styles.container}>
       <Animated.Image
         source={require("@assets/images/splash/splash-secondary.png")}
-        style={[styles.productImage, { transform: [{ translateY: imagePosition }] }]}
+        style={[
+          styles.productImage,
+          { transform: [{ translateY: imagePosition }] },
+        ]}
         resizeMode="cover"
       />
     </View>

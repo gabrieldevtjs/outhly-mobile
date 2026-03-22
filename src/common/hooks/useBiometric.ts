@@ -24,6 +24,9 @@ const setupBiometrics = async () => {
   const deviceToken = uuid.v4() as string;
 
   try {
+
+    console.log("body:", JSON.stringify({ deviceId, deviceToken }));
+
     await BiometricStorage.saveDeviceToken(deviceToken);
     await AuthServiceBiometric.registerDevice.queryFn({
       deviceId,

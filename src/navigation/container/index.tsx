@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AuthRoutes from "../routes/stack/auth";
 import Providers from "./providers";
-import { useAuthStore } from "../../stores/auth";
+import { useAuthStore } from "../../common/stores/auth";
 import AppRoutes from "../routes/stack";
-import { theme } from "@common/utils/theme";
+import { useTheme } from "@common/hooks/useTheme";
 import Splash from "@screens/sliders/splash";
 
 const Container = () => {
   const { user, signOut } = useAuthStore();
+  const { theme } = useTheme();
 
   // signOut()
   const [ready, setReady] = useState(false);

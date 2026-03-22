@@ -1,11 +1,13 @@
-import { theme } from "@common/utils/theme";
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { useTheme } from "@common/hooks/useTheme";
 
 const Fab = ({ onPress }: { onPress?: () => void }) => {
+  const { theme } = useTheme();
+
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={[styles.container, { backgroundColor: theme.colors.primary }]}
       onPress={onPress}
       activeOpacity={0.8}
     >
@@ -13,6 +15,7 @@ const Fab = ({ onPress }: { onPress?: () => void }) => {
     </TouchableOpacity>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
@@ -21,9 +24,9 @@ const styles = StyleSheet.create({
     right: 35,
     bottom: 55,
     borderRadius: 50,
-    backgroundColor: theme.colors.primary,
     alignItems: "center",
     justifyContent: "center",
   },
 });
+
 export { Fab };
