@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginType, SchemaLogin } from "../model/zod";
 import { useMutation } from "@tanstack/react-query";
-import { AuthServiceHttp } from "../../../../services/auth/http";
+import { AuthServiceHttp } from "../../../../api/auth/http";
 import { useAuthStore } from "../../../../common/stores/auth";
 import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
 import { notify } from "../../../../common/notify";
@@ -20,6 +20,10 @@ const UseLoginViewModel = () => {
     handleSubmit,
   } = useForm<LoginType>({
     resolver: zodResolver(SchemaLogin),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const { mutateAsync } = useMutation({

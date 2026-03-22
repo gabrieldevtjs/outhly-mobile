@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterType, SchemaRegister } from "../model/zod";
-import { AuthServiceHttp } from "../../../../services/auth/http";
+import { AuthServiceHttp } from "../../../../api/auth/http";
 import { AuthStorage } from "../../../../infrastructure/storage/keychan/user";
 import { useAuthStore } from "../../../../common/stores/auth";
 import { notify } from "../../../../common/notify";

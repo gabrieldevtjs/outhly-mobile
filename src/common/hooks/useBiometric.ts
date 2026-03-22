@@ -2,7 +2,7 @@ import * as Keychain from "react-native-keychain";
 import DeviceInfo from "react-native-device-info";
 import uuid from "react-native-uuid";
 import { BiometricStorage } from "../../infrastructure/storage/keychan/biometric";
-import { AuthServiceBiometric } from "../../services/auth/biometric";
+import { AuthServiceBiometric } from "../../api/auth/biometric";
 
 const setupBiometrics = async () => {
   const hasHardware = await Keychain.canImplyAuthentication({
@@ -13,7 +13,7 @@ const setupBiometrics = async () => {
 
   const biometryRegistred = await BiometricStorage.getBiometricRegistred();
 
-  console.log(biometryRegistred)
+  console.log(biometryRegistred);
   if (!biometryRegistred) return;
 
   const alreadyRegistered = await BiometricStorage.getDeviceToken();
@@ -24,7 +24,6 @@ const setupBiometrics = async () => {
   const deviceToken = uuid.v4() as string;
 
   try {
-
     console.log("body:", JSON.stringify({ deviceId, deviceToken }));
 
     await BiometricStorage.saveDeviceToken(deviceToken);

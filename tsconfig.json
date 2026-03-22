@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "paths": {
       "@assets/*": ["./assets/*"],
-      "@components/*": ["./src/components/*"],
+      "@components/*": ["./src/common/components/*"],
       "@screens/*": ["./src/screens/*"],
       "@common/*": ["./src/common/*"],
       "@api/*": ["./src/infrastructure/config/http/axios/*"]

@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { QueueRequests } from "./types";
 import { apiAxiosInstance } from "./instance.api";
-import { AuthServiceHttp } from "../../../../services/auth/http";
+import { AuthServiceHttp } from "../../../../api/auth/http";
 import { AuthStorage } from "../../../storage/keychan/user";
 import { DEFAULT_MESSAGES_API } from "@common/message";
 
@@ -18,7 +18,6 @@ apiAxiosInstance.registerInterceptTokenManager = (signOut) => {
 
       error.message =
         backMessage || DEFAULT_MESSAGES_API[problem] || "Erro inesperado";
-
 
       if (error.response?.status !== 401) {
         return Promise.reject(error);

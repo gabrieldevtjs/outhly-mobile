@@ -12,13 +12,15 @@ const RootStack = createNativeStackNavigator({
     Home: {
       if: useIsSignedIn,
       screen: AppStack,
+      options: {
+        headerShown: false,
+      },
     },
     SignIn: {
       if: useIsSignedOut,
       screen: AuthStack,
       options: {
         headerShown: false,
-        title: "Sign in",
       },
     },
   },

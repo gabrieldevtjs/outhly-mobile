@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import { HeaderBack } from "../../../../components/HeaderBack";
+import { HeaderBack } from "../../../../common/components/HeaderBack";
 import { Card } from "@components/Card";
 import { CardSenha } from "../components/card";
 import { Fab } from "@components/Fab";

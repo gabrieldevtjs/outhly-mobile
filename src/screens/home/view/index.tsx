@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { Text, XStack, YStack, View, useTheme } from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { CategoryCard } from "../components/card";
 import { CategoryCardSkeleton } from "../../../common/skeletons/home";
 import { useEffect, useState } from "react";
-import { useTheme } from "../../../common/hooks/useTheme";
 
 const cards = [
   {
@@ -38,34 +38,41 @@ const cards = [
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { theme } = useTheme();
+  const theme = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
-  const styles = makeStyles(theme.colors);
+  const primaryColor = theme.primary?.get();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <YStack>
+      <YStack>
         {isLoading ? (
           <CategoryCardSkeleton />
         ) : (
           <>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Categorias</Text>
-              <TouchableOpacity style={styles.seeAllContent}>
-                <View style={styles.seeAllRow}>
-                  <Text style={styles.sectionSubtitle}>Ver todos</Text>
-                  <Ionicons name="arrow-forward" size={14} color={theme.colors.primary} />
-                </View>
-                <View style={styles.underline} />
-              </TouchableOpacity>
-            </View>
+            <XStack justify="space-between">
+              <Text pb="$md">Categorias</Text>
 
-            <View style={styles.grid}>
+              <TouchableOpacity>
+                <YStack>
+                  <XStack>
+                    <Text>Ver todos</Text>
+                    <Ionicons
+                      name="arrow-forward"
+                      size={14}
+                      color={primaryColor}
+                    />
+                  </XStack>
+                  <View />
+                </YStack>
+              </TouchableOpacity>
+            </XStack>
+
+            <XStack>
               {cards.map((card) => (
                 <CategoryCard
                   key={card.id}
@@ -75,60 +82,12 @@ const Home = () => {
                   url={card.navigate}
                 />
               ))}
-            </View>
+            </XStack>
           </>
         )}
-      </View>
-    </View>
+      </YStack>
+    </YStack>
   );
 };
-
-const makeStyles = (colors: ReturnType<typeof useTheme>["theme"]["colors"]) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-    content: {
-      flex: 1,
-      paddingHorizontal: 24,
-      paddingTop: 24,
-      gap: 16,
-    },
-    sectionHeader: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      paddingHorizontal: 2,
-    },
-    sectionTitle: {
-      color: colors.title,
-      fontSize: 16,
-      fontWeight: "700",
-    },
-    seeAllContent: {
-      gap: 4,
-    },
-    seeAllRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 4,
-    },
-    underline: {
-      height: 1,
-      backgroundColor: colors.primary,
-      borderRadius: 12,
-    },
-    sectionSubtitle: {
-      color: colors.primary,
-      fontSize: 14,
-      fontWeight: "700",
-    },
-    grid: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      gap: 12,
-    },
-  });
 
 export default Home;
