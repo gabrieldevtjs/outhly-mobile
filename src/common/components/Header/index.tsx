@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthStore } from "../../common/stores/auth";
+
 import { useEffect, useState } from "react";
-import { HeaderSkeleton } from "../../common/skeletons/header";
+
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "@common/hooks/useTheme";
+import { HeaderSkeleton } from "@common/skeletons/header";
+import { useAuthStore } from "@common/stores/auth";
 
 const Header = () => {
   const navigation = useNavigation<any>();

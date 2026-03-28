@@ -1,33 +1,41 @@
 import { defaultConfig } from "@tamagui/config/v5";
 import { createTamagui, createTokens } from "tamagui";
 
+const defaltValuesBrekpoints = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  xxl: 32,
+};
+
+const defaltValuesColors = {
+  white: "#fff",
+  black: "#000",
+  primary: "#F15EF1",
+  background: "#121212",
+};
+
 const tokens = createTokens({
   ...defaultConfig.tokens,
   size: {
     ...defaultConfig.tokens.size,
-    sm: 8,
-    md: 12,
-    lg: 20,
+    ...defaltValuesBrekpoints,
   },
   space: {
     ...defaultConfig.tokens.space,
-    sm: 4,
-    md: 8,
-    lg: 12,
+    ...defaltValuesBrekpoints,
   },
   radius: {
     ...defaultConfig.tokens.radius,
-    none: 0,
-    sm: 3,
+    ...defaltValuesBrekpoints,
   },
   zIndex: {
     ...defaultConfig.tokens.zIndex,
   },
   color: {
-    white: "#fff",
-    black: "#000",
-    primary: "#F15EF1",
-    background: "#121212",
+    ...defaltValuesColors,
   },
 });
 

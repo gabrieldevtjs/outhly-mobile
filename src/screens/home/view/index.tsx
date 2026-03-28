@@ -56,7 +56,6 @@ const Home = () => {
           <>
             <XStack justify="space-between">
               <Text pb="$md">Categorias</Text>
-
               <TouchableOpacity>
                 <YStack>
                   <XStack>

@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useAuthStore } from "../../../common/stores/auth";
 import { notify } from "@common/notify";
-import { YStack, XStack, ZStack } from "tamagui";
+import { YStack, XStack, ZStack, View } from "tamagui";
 
 const CONFIG_ITEMS = [
   { label: "Perfil", section: true },
@@ -46,13 +46,13 @@ const Config = () => {
         )}
       </View>
 
-      <View style={styles.footer}>
+      <View m="$sm" style={styles.footer}>
         <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
           <Text style={styles.logoutText}>Sair da conta</Text>
         </TouchableOpacity>
       </View>
 
-      <YStack gap="$4">
+      <YStack>
         <Text>Item 1</Text>
         <Text>Item 2</Text>
       </YStack>

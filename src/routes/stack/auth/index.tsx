@@ -9,10 +9,10 @@ const AuthStack = createNativeStackNavigator({
     headerShown: false,
   },
   screens: {
-    Sliders: {
-      screen: Sliders,
-      options: { title: "sliders" },
-    },
+    // Sliders: {
+    //   screen: Sliders,
+    //   options: { title: "sliders" },
+    // },
     Auth: {
       screen: AuthScreen,
       options: { title: "Auth" },
