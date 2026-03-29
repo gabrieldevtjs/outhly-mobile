@@ -8,6 +8,9 @@ const defaltValuesBrekpoints = {
   lg: 16,
   xl: 24,
   xxl: 32,
+  xxxl: 48,
+  huge: 64,
+  giant: 80,
 };
 
 const defaultFontSizes = {
@@ -23,49 +26,61 @@ const defaltValuesColors = {
   // fixas
   white: "#fff",
   black: "#000",
-
+  error: "#ff4d4d",
   // dark
-  primaryDark: "#F15EF1",
+  primaryDark: "#D63ED6",
   backgroundDark: "#121212",
   cardDark: "#1E1E1E",
-  titleDark: "#F3F4F6",
+  titleDark: "#2b2e34",
   subtitleDark: "#9DA3AF",
   borderDark: "#2A2A2A",
 
   // light
   primaryLight: "#D63ED6",
-  backgroundLight: "#F5F5F5",
+  backgroundLight: "#fffbfb",
   cardLight: "#FFFFFF",
   titleLight: "#1e232e",
   subtitleLight: "#6B7280",
   borderLight: "#E5E7EB",
 };
 
-const systemFont = createFont({
-  family: "Helvetica, Arial, sans-serif",
+const fonts = createFont({
+  family: "System",
   size: {
-    1: 12,
-    2: 14,
-    3: 15,
+    ...defaultConfig.fonts.body.size,
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 24,
+    xxl: 32,
   },
   lineHeight: {
-    // 1 will be 22
-    2: 22,
+    ...defaultConfig.fonts.body.lineHeight,
+    xs: 16,
+    sm: 20,
+    md: 24,
+    lg: 28,
+    xl: 32,
+    xxl: 40,
   },
   weight: {
-    1: "300",
-    // 2 will be 300
-    3: "600",
+    ...defaultConfig.fonts.body.weight,
+    xs: "400",
+    sm: "400",
+    md: "400",
+    lg: "600",
+    xl: "700",
+    xxl: "800",
   },
   letterSpacing: {
-    1: 0,
-    2: -1,
-    // 3 will be -1
-  },
-  // (native only) swaps out fonts by face/style
-  face: {
-    300: { normal: "InterLight", italic: "InterItalic" },
-    600: { normal: "InterBold" },
+    ...defaultConfig.fonts.body.letterSpacing,
+    xs: 0,
+    sm: 0,
+    md: 0,
+    lg: -0.5,
+    xl: -1,
+    xxl: -1.5,
   },
 });
 
@@ -88,37 +103,38 @@ const tokens = createTokens({
   color: {
     ...defaltValuesColors,
   },
-
 });
 
 export const configTamagui = createTamagui({
   ...defaultConfig,
-  // fonts: {
-  //   heading: systemFont,
-  //   body: systemFont,
-  // },
+  fonts: {
+    heading: fonts,
+    body: fonts,
+  },
   tokens,
   themes: {
     light: {
-      ...defaultConfig.themes.light,
-      bg: tokens.color.backgroundLight,
-      color: tokens.color.black,
-      primary: tokens.color.primaryLight,
-      card: tokens.color.cardLight,
-      title: tokens.color.titleLight,
-      subtitle: tokens.color.subtitleLight,
-      border: tokens.color.borderLight,
-    },
-    dark: {
-      ...defaultConfig.themes.dark,
-      bg: tokens.color.backgroundDark,
-      color: tokens.color.white,
-      primary: tokens.color.primaryDark,
-      card: tokens.color.cardDark,
-      title: tokens.color.titleDark,
-      subtitle: tokens.color.subtitleDark,
-      border: tokens.color.borderDark,
-    },
+    ...defaultConfig.themes.light,
+    bg: tokens.color.backgroundLight,
+    color: tokens.color.black,
+    primary: tokens.color.primaryLight,
+    card: tokens.color.cardLight,
+    title: tokens.color.titleLight,
+    subtitle: tokens.color.subtitleLight,
+    border: tokens.color.borderLight,
+    error: tokens.color.error, 
+  },
+  dark: {
+    ...defaultConfig.themes.dark,
+    bg: tokens.color.backgroundDark,
+    color: tokens.color.white,
+    primary: tokens.color.primaryDark,
+    card: tokens.color.cardDark,
+    title: tokens.color.titleDark,
+    subtitle: tokens.color.subtitleDark,
+    border: tokens.color.borderDark,
+    error: tokens.color.error,
+  },
   },
   media: {
     ...defaultConfig.media,
@@ -142,6 +158,7 @@ export const configTamagui = createTamagui({
   shorthands: {
     ...defaultConfig.shorthands,
     flex: "flex" as const,
+    bd: "borderRadius" as const,
   },
 });
 

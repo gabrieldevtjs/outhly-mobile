@@ -14,7 +14,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <SafeAreaProvider>
       <TamaguiProvider config={configTamagui} defaultTheme={mode}>
-        <Theme name={mode}>
+        <Theme name={"dark"}>
           <YStack flex={1}>
             <QueryClientProvider client={queryClient}>
               {children}

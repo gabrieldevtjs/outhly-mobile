@@ -1,17 +1,15 @@
 import { Controller } from "react-hook-form";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Image,
 } from "react-native";
+import { XStack, YStack, Input, useTheme } from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { UseLoginViewModel } from "../viewModel";
+import { Text } from "@common/components/ui/text";
+import { Button, ButtonText } from "@common/components/ui/button";
 import Page from "@components/layout/page";
 
 const LoginScreen = () => {
@@ -25,331 +23,192 @@ const LoginScreen = () => {
     goToRegister,
   } = UseLoginViewModel();
 
+  const theme = useTheme();
+
   return (
     <Page>
       <KeyboardAvoidingView
+        style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContainer}
+          contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.content}>
-            <View style={styles.header}>
+          <YStack
+            flex={1}
+            px="$xxl"
+            pt="$giant"
+            pb="$xxl"
+            justify="center"
+            gap="$xxl"
+          >
+
+            <YStack items="center">
               <Image
-                source={require("@assets/images/auth/login.png")}
-                style={styles.productImage}
+                source={require("@assets/images/icon/icon-new.png")}
+                style={{ width: 320, height: 120 }}
                 resizeMode="cover"
               />
-            </View>
+            </YStack>
 
-            <View style={styles.formContainer}>
+            {/* form */}
+            <YStack gap="$md">
+              {/* email */}
               <Controller
                 control={control}
                 name="email"
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <View style={styles.inputWrapper}>
-                    <View
-                      style={[
-                        styles.inputContainer,
-                        errors.email && styles.inputError,
-                      ]}
+                  <YStack gap="$xs">
+                    <XStack
+                      items="center"
+                      bg="$card"
+                      rounded="$lg"
+                      borderWidth={2}
+                      borderColor={errors.email ? "$error" : "$border"}
+                      px="$lg"
+                      height="$huge"
                     >
                       <Ionicons
                         name="mail-outline"
                         size={20}
-                        color="#999"
-                        style={styles.inputIcon}
+                        color={theme.subtitle.get()}
                       />
-                      <TextInput
-                        style={styles.input}
+                      <Input
+                        flex={1}
                         placeholder="Email"
-                        placeholderTextColor="#999"
+                        placeholderTextColor={"$subtitle"}
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         keyboardType="email-address"
                         autoCapitalize="none"
+                        color="$title"
+                        bg="transparent"
+                        borderWidth={0}
+                        fontSize="$md"
                       />
-                    </View>
+                    </XStack>
                     {errors.email && (
-                      <Text style={styles.errorText}>
+                      <Text variant="caption" color="$error" ml="$xs">
                         {errors.email.message}
                       </Text>
                     )}
-                  </View>
+                  </YStack>
                 )}
               />
 
+              {/* password */}
               <Controller
                 control={control}
                 name="password"
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <View style={styles.inputWrapper}>
-                    <View
-                      style={[
-                        styles.inputContainer,
-                        errors.password && styles.inputError,
-                      ]}
+                  <YStack gap="$xs">
+                    <XStack
+                      items="center"
+                      bg="$card"
+                      rounded="$lg"
+                      borderWidth={2}
+                      borderColor={errors.password ? "$error" : "$border"}
+                      px="$lg"
+                      height="$huge"
                     >
                       <Ionicons
                         name="lock-closed-outline"
                         size={20}
-                        color="#999"
-                        style={styles.inputIcon}
+                        color={theme.subtitle.get()}
                       />
-                      <TextInput
-                        style={[styles.input, { flex: 1 }]}
+                      <Input
+                        flex={1}
                         placeholder="Senha"
-                        placeholderTextColor="#999"
+                        placeholderTextColor={"$subtitle"}
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         secureTextEntry={!showPassword}
+                        color="$title"
+                        bg="transparent"
+                        borderWidth={0}
+                        fontSize="$md"
                       />
-                      <TouchableOpacity
+                      <Ionicons
+                        name={showPassword ? "eye-outline" : "eye-off-outline"}
+                        size={20}
+                        color={theme.primary.get()}
                         onPress={toggleShowPassword}
-                        style={styles.eyeIcon}
-                      >
-                        <Ionicons
-                          name={
-                            showPassword ? "eye-outline" : "eye-off-outline"
-                          }
-                          size={20}
-                          color="#BB44CF"
-                        />
-                      </TouchableOpacity>
-                    </View>
+                      />
+                    </XStack>
                     {errors.password && (
-                      <Text style={styles.errorText}>
+                      <Text variant="caption" color="$error" ml="$xs">
                         {errors.password.message}
                       </Text>
                     )}
-                  </View>
+                  </YStack>
                 )}
               />
 
-              <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
+              {/* forgot password */}
+              <Text variant="caption" self="flex-end" onPress={() => {}}>
+                Esqueceu a senha?
+              </Text>
 
-              <TouchableOpacity
-                activeOpacity={0.8}
+              {/* submit */}
+              <Button
+                variant="contained"
+                width="100%"
                 onPress={handleSubmit}
                 disabled={isSubmitting}
-                style={styles.signInButton}
+                opacity={isSubmitting ? 0.7 : 1}
               >
-                <Text style={styles.signInText}>
+                <ButtonText>
                   {isSubmitting ? "Entrando..." : "Entrar"}
+                </ButtonText>
+              </Button>
+
+              {/* divider */}
+              <XStack items="center" gap="$md">
+                <YStack flex={1} height={1} bg="$border" />
+                <Text variant="caption">OU</Text>
+                <YStack flex={1} height={1} bg="$border" />
+              </XStack>
+
+              {/* social */}
+              <XStack justify="center" gap="$lg">
+                {(["logo-google", "logo-apple", "logo-facebook"] as const).map(
+                  (icon) => (
+                    <YStack
+                      key={icon}
+                      width="$huge"
+                      height="$huge"
+                      bd="$xxxl"
+                      items="center"
+                      justify="center"
+                      borderWidth={2}
+                      borderColor="$border"
+                    >
+                      <Ionicons
+                        name={icon}
+                        size={24}
+                        color={theme.primary.get()}
+                      />
+                    </YStack>
+                  ),
+                )}
+              </XStack>
+
+              {/* signup */}
+              <XStack justify="center" items="center">
+                <Text variant="caption">Não tem uma conta? </Text>
+                <Text variant="caption" color="$primary" onPress={goToRegister}>
+                  Cadastre-se
                 </Text>
-              </TouchableOpacity>
-
-              <View style={styles.divider}>
-                <View style={styles.dividerLine} />
-                <Text style={styles.dividerText}>OU</Text>
-                <View style={styles.dividerLine} />
-              </View>
-
-              <View style={styles.socialContainer}>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-google" size={24} color="#FFF" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-apple" size={24} color="#FFF" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-facebook" size={24} color="#FFF" />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.signUpContainer}>
-                <Text style={styles.signUpText}>Não tem uma conta? </Text>
-                <TouchableOpacity onPress={goToRegister}>
-                  <Text style={styles.signUpLink}>Cadastre-se</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+              </XStack>
+            </YStack>
+          </YStack>
         </ScrollView>
       </KeyboardAvoidingView>
     </Page>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 80,
-    paddingBottom: 40,
-    justifyContent: "center",
-    gap: 40,
-  },
-  header: {
-    alignItems: "center",
-  },
-  iconContainer: {
-    marginBottom: 24,
-  },
-  iconBackground: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    backgroundColor: "rgba(255, 255, 255, 0.15)",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 3,
-    borderColor: "rgba(255, 255, 255, 0.2)",
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: "700",
-    color: "#F15EF1",
-    // bc23d7
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: "rgba(255, 255, 255, 0.8)",
-    textAlign: "center",
-  },
-  formContainer: {
-    width: "100%",
-  },
-  inputWrapper: {
-    marginBottom: 16,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#292929",
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: "rgba(255, 255, 255, 0.3)",
-    paddingHorizontal: 16,
-    height: 56,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  inputFocused: {
-    borderColor: "#fff",
-    backgroundColor: "#fff",
-    shadowColor: "#fff",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 6,
-  },
-  inputIcon: {
-    marginRight: 12,
-  },
-  input: {
-    flex: 1,
-    fontSize: 15,
-    color: "#fff",
-  },
-  eyeIcon: {
-    padding: 4,
-  },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    marginBottom: 24,
-  },
-  forgotPasswordText: {
-    color: "#ffffff",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  signInButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#BB44CF",
-    borderRadius: 16,
-    paddingVertical: 16,
-    marginBottom: 24,
-
-    shadowColor: "#000",
-
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  signInText: {
-    fontSize: 17,
-    fontWeight: "700",
-    color: "#ffff",
-  },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 24,
-  },
-  productImage: {
-    width: 180,
-    height: 180,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-  },
-  dividerText: {
-    marginHorizontal: 16,
-    color: "rgba(255, 255, 255, 0.8)",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  socialContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 16,
-    marginBottom: 32,
-  },
-  socialButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "rgba(255, 255, 255, 0.3)",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  signUpContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  signUpText: {
-    color: "rgba(255, 255, 255, 0.8)",
-    fontSize: 15,
-  },
-  signUpLink: {
-    color: "#BB44CF",
-    fontSize: 15,
-    fontWeight: "700",
-    textDecorationLine: "underline",
-  },
-  inputError: {
-    borderColor: "#ff4d4d",
-  },
-  errorText: {
-    color: "#ff4d4d",
-    fontSize: 12,
-    marginTop: 4,
-    marginLeft: 4,
-  },
-});
 
 export default LoginScreen;

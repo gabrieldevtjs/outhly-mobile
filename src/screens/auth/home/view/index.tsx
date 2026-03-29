@@ -15,7 +15,7 @@ const AuthScreen = () => {
 
   return (
     <Page px="$xxl">
-      <YStack flex={1} justify="flex-end" py="$xxl" gap="$space.20">
+      <YStack flex={1} justify="flex-end" py="$xxl" gap="$space.18">
         <YStack gap="$md" items="flex-start">
           <Ionicons name="finger-print" size={60} color={theme.primary.val} />
 
