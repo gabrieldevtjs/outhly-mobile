@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { useAuthStore } from "@common/stores/auth";
 import AuthStack from "../stack/auth";
 import AppStack from "../stack/app";

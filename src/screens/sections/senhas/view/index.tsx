@@ -1,8 +1,6 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import { HeaderBack } from "../../../../common/components/HeaderBack";
-import { Card } from "@components/Card";
 import { CardSenha } from "../components/card";
-import { Fab } from "@components/Fab";
+import { Fab } from "@components/actions/fab";
 import { useTheme } from "@common/hooks/useTheme";
 import { Theme } from "@common/theme";
 
@@ -11,7 +9,12 @@ const SenhaViewSection = () => {
   const styles = makeStyles(theme.colors);
 
   const mockData = [
-    { id: "teste1", icon: "", title: "Google", subtitle: "jose.gabriel@gmai.com" },
+    {
+      id: "teste1",
+      icon: "",
+      title: "Google",
+      subtitle: "jose.gabriel@gmai.com",
+    },
     { id: "teste2", icon: "", title: "Netflix", subtitle: "familia_gabriel" },
     { id: "teste3", icon: "", title: "Instagram", subtitle: "@jose_gabriel" },
     { id: "teste4", icon: "", title: "Spotify", subtitle: "jose.g_premium" },

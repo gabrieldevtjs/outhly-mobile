@@ -1,114 +1,63 @@
-import { useTheme } from "@common/hooks/useTheme";
+import { useTheme, YStack } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Theme } from "@common/theme";
+import { Ionicons } from "@expo/vector-icons";
+import { Text } from "@common/components/ui/text";
+import { Button, ButtonText } from "@common/components/ui/button";
+import Page from "@components/layout/page";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { AuthStackTypeRoutes } from "@routes/stack/auth/types";
+
+type Routes = NativeStackNavigationProp<AuthStackTypeRoutes>;
 
 const AuthScreen = () => {
-  const navigation = useNavigation<any>();
-  const { theme } = useTheme();
-  const styles = makeStyles(theme.colors);
-
-  const redirectLogin = () => {
-    navigation.navigate("Login");
-  };
+  const theme = useTheme();
+  const navigation = useNavigation<Routes>();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.section}>
-        <Image
-          source={require("@assets/images/auth/login.png")}
-          style={styles.productImage}
-          resizeMode="cover"
-        />
-        <View
-          style={{ justifyContent: "center", alignItems: "center", gap: 60 }}
-        >
-          <View style={styles.sectionContent}>
-            <Text style={styles.title}>
-              Login Securely to Unlock Your Future
-            </Text>
-            <Text style={styles.subtTitle}>
-              Explore all existing job roles based on your interest and study
-              major
-            </Text>
-          </View>
+    <Page px="$xxl">
+      <YStack flex={1} justify="flex-end" py="$xxl" gap="$space.20">
+        <YStack gap="$md" items="flex-start">
+          <Ionicons name="finger-print" size={60} color={theme.primary.val} />
 
-          <View style={styles.sectionButton}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => redirectLogin()}
-              style={[
-                styles.buttonContainer,
-                { backgroundColor: "#1F41BB", borderColor: "#1F41BB" },
-              ]}
-            >
-              <Text style={[styles.button, { color: "#ffffff" }]}>Login</Text>
-            </TouchableOpacity>
+          <Text fontWeight="800" fontSize={"$10"} width="100%">
+            Olá, Seja Bem Vindo ao <Text color="$primary">Outly</Text>
+          </Text>
 
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => null}
-              style={styles.buttonContainer}
-            >
-              <Text style={[styles.button, { color: "#5d5d5dff" }]}>
-                Register
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
+          <Text variant="subtitle" fontSize={"$4"}>
+            Suas senhas e anotações, seguras e sempre com você.
+          </Text>
+        </YStack>
+
+        <YStack gap="$lg" items="center">
+          <Text variant="caption" fontSize={"$2"}>
+            Ao continuar, você concorda com nossos Termos de Uso e Política de
+            Privacidade. O Outly utiliza criptografia de ponta a ponta para
+            proteger suas senhas e anotações. Seus dados pertencem apenas a
+            você.{" "}
+            <Text variant="caption" color="$primary">
+              Saiba mais sobre nossa segurança
+            </Text>
+          </Text>
+
+          <Button
+            variant="outlined"
+            width="100%"
+            onPress={() => navigation.navigate("Login")}
+          >
+            <ButtonText color="$primary">Login</ButtonText>
+          </Button>
+
+          <Button
+            variant="contained"
+            width="100%"
+            onPress={() => navigation.navigate("Register")}
+          >
+            <ButtonText>Register</ButtonText>
+          </Button>
+        </YStack>
+      </YStack>
+    </Page>
   );
 };
-
-const makeStyles = (colors: Theme["colors"]) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-    productImage: {
-      width: 300,
-      height: 300,
-      borderRadius: 8,
-    },
-    section: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      paddingHorizontal: 20,
-    },
-    sectionContent: {
-      gap: 12,
-      alignItems: "center",
-      paddingHorizontal: 10,
-    },
-    sectionButton: {
-      paddingHorizontal: 26,
-      gap: 20,
-    },
-    buttonContainer: {
-      flex: 1,
-      borderRadius: 12,
-      borderWidth: 1,
-      paddingHorizontal: 26,
-      paddingVertical: 12,
-    },
-    title: {
-      textAlign: "center",
-      fontWeight: "700",
-      fontSize: 28,
-      color: "#1F41BB",
-    },
-    subtTitle: {
-      textAlign: "center",
-      fontSize: 14,
-      color: "#666",
-    },
-    button: {
-      fontWeight: "700",
-      textAlign: "center",
-    },
-  });
 
 export default AuthScreen;

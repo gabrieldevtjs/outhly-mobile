@@ -8,7 +8,9 @@
       "@components/*": ["./src/common/components/*"],
       "@screens/*": ["./src/screens/*"],
       "@common/*": ["./src/common/*"],
-      "@api/*": ["./src/infrastructure/config/http/axios/*"]
+      "@api/*": ["./src/infrastructure/config/http/axios/*"],
+      "@routes/*": ["./src/routes/*"]
     }
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "tamagui.config.ts", "global.d.ts"]
 }

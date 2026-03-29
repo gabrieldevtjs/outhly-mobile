@@ -25,17 +25,23 @@ const Header = () => {
   }, []);
 
   return (
-    <SafeAreaView edges={["top"]} style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView
+      edges={["top"]}
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       {isLoading ? (
         <HeaderSkeleton />
       ) : (
         <View style={styles.row}>
           <View style={styles.info}>
             <Text style={[styles.greeting, { color: theme.colors.title }]}>
-              Olá, <Text style={{ color: theme.colors.primary }}>{user?.name}</Text>
+              Olá,{" "}
+              <Text style={{ color: theme.colors.primary }}>{user?.name}</Text>
             </Text>
 
-            <Text style={[styles.badgeText, { color: theme.colors.subtitle }]}>Bem vindo ao seu cofre</Text>
+            <Text style={[styles.badgeText, { color: theme.colors.subtitle }]}>
+              Bem vindo ao seu cofre
+            </Text>
           </View>
 
           <View style={styles.actions}>
@@ -47,8 +53,15 @@ const Header = () => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.7} onPress={() => redirectConfig()}>
-              <Ionicons name="person-circle" size={38} color={mode === "dark" ? "#fff" : theme.colors.primary} />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => redirectConfig()}
+            >
+              <Ionicons
+                name="person-circle"
+                size={38}
+                color={mode === "dark" ? "#fff" : theme.colors.primary}
+              />
             </TouchableOpacity>
           </View>
         </View>

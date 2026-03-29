@@ -9,8 +9,6 @@ interface Props {
 
 const Splash = ({ onFinish }: Props) => {
   const imagePosition = useRef(new Animated.Value(0)).current;
-  const { user } = useAuthStore();
-
   const handleAuth = async () => {
     const deviceToken = await authenticateWithBiometrics();
 

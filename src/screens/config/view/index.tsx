@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useAuthStore } from "../../../common/stores/auth";
 import { notify } from "@common/notify";
-import { YStack, XStack, ZStack, View } from "tamagui";
+import { YStack, View } from "tamagui";
 
 const CONFIG_ITEMS = [
   { label: "Perfil", section: true },

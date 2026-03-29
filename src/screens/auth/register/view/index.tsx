@@ -111,6 +111,7 @@ const RegisterScreen = () => {
               )}
             />
 
+            <Text></Text>
             <Controller
               control={control}
               name="password"

@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { UseLoginViewModel } from "../viewModel";
+import Page from "@components/layout/page";
 
 const LoginScreen = () => {
   const {
@@ -25,156 +26,157 @@ const LoginScreen = () => {
   } = UseLoginViewModel();
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
+    <Page>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View style={styles.content}>
-          <View style={styles.header}>
-            <Image
-              source={require("@assets/images/auth/login.png")}
-              style={styles.productImage}
-              resizeMode="cover"
-            />
-          </View>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.content}>
+            <View style={styles.header}>
+              <Image
+                source={require("@assets/images/auth/login.png")}
+                style={styles.productImage}
+                resizeMode="cover"
+              />
+            </View>
 
-          <View style={styles.formContainer}>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <View style={styles.inputWrapper}>
-                  <View
-                    style={[
-                      styles.inputContainer,
-                      errors.email && styles.inputError,
-                    ]}
-                  >
-                    <Ionicons
-                      name="mail-outline"
-                      size={20}
-                      color="#999"
-                      style={styles.inputIcon}
-                    />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Email"
-                      placeholderTextColor="#999"
-                      value={value}
-                      onChangeText={onChange}
-                      onBlur={onBlur}
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                    />
-                  </View>
-                  {errors.email && (
-                    <Text style={styles.errorText}>{errors.email.message}</Text>
-                  )}
-                </View>
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="password"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <View style={styles.inputWrapper}>
-                  <View
-                    style={[
-                      styles.inputContainer,
-                      errors.password && styles.inputError,
-                    ]}
-                  >
-                    <Ionicons
-                      name="lock-closed-outline"
-                      size={20}
-                      color="#999"
-                      style={styles.inputIcon}
-                    />
-                    <TextInput
-                      style={[styles.input, { flex: 1 }]}
-                      placeholder="Senha"
-                      placeholderTextColor="#999"
-                      value={value}
-                      onChangeText={onChange}
-                      onBlur={onBlur}
-                      secureTextEntry={!showPassword}
-                    />
-                    <TouchableOpacity
-                      onPress={toggleShowPassword}
-                      style={styles.eyeIcon}
+            <View style={styles.formContainer}>
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <View style={styles.inputWrapper}>
+                    <View
+                      style={[
+                        styles.inputContainer,
+                        errors.email && styles.inputError,
+                      ]}
                     >
                       <Ionicons
-                        name={showPassword ? "eye-outline" : "eye-off-outline"}
+                        name="mail-outline"
                         size={20}
-                        color="#BB44CF"
+                        color="#999"
+                        style={styles.inputIcon}
                       />
-                    </TouchableOpacity>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        placeholderTextColor="#999"
+                        value={value}
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                      />
+                    </View>
+                    {errors.email && (
+                      <Text style={styles.errorText}>
+                        {errors.email.message}
+                      </Text>
+                    )}
                   </View>
-                  {errors.password && (
-                    <Text style={styles.errorText}>
-                      {errors.password.message}
-                    </Text>
-                  )}
-                </View>
-              )}
-            />
+                )}
+              />
 
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <View style={styles.inputWrapper}>
+                    <View
+                      style={[
+                        styles.inputContainer,
+                        errors.password && styles.inputError,
+                      ]}
+                    >
+                      <Ionicons
+                        name="lock-closed-outline"
+                        size={20}
+                        color="#999"
+                        style={styles.inputIcon}
+                      />
+                      <TextInput
+                        style={[styles.input, { flex: 1 }]}
+                        placeholder="Senha"
+                        placeholderTextColor="#999"
+                        value={value}
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                        secureTextEntry={!showPassword}
+                      />
+                      <TouchableOpacity
+                        onPress={toggleShowPassword}
+                        style={styles.eyeIcon}
+                      >
+                        <Ionicons
+                          name={
+                            showPassword ? "eye-outline" : "eye-off-outline"
+                          }
+                          size={20}
+                          color="#BB44CF"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    {errors.password && (
+                      <Text style={styles.errorText}>
+                        {errors.password.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
+              />
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={handleSubmit}
-              disabled={isSubmitting}
-              style={styles.signInButton}
-            >
-              <Text style={styles.signInText}>
-                {isSubmitting ? "Entrando..." : "Entrar"}
-              </Text>
-            </TouchableOpacity>
-
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OU</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <View style={styles.socialContainer}>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-google" size={24} color="#FFF" />
+              <TouchableOpacity style={styles.forgotPassword}>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-apple" size={24} color="#FFF" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Ionicons name="logo-facebook" size={24} color="#FFF" />
-              </TouchableOpacity>
-            </View>
 
-            <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Não tem uma conta? </Text>
-              <TouchableOpacity onPress={goToRegister}>
-                <Text style={styles.signUpLink}>Cadastre-se</Text>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleSubmit}
+                disabled={isSubmitting}
+                style={styles.signInButton}
+              >
+                <Text style={styles.signInText}>
+                  {isSubmitting ? "Entrando..." : "Entrar"}
+                </Text>
               </TouchableOpacity>
+
+              <View style={styles.divider}>
+                <View style={styles.dividerLine} />
+                <Text style={styles.dividerText}>OU</Text>
+                <View style={styles.dividerLine} />
+              </View>
+
+              <View style={styles.socialContainer}>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-google" size={24} color="#FFF" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-apple" size={24} color="#FFF" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-facebook" size={24} color="#FFF" />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.signUpContainer}>
+                <Text style={styles.signUpText}>Não tem uma conta? </Text>
+                <TouchableOpacity onPress={goToRegister}>
+                  <Text style={styles.signUpLink}>Cadastre-se</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </Page>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#121212",
-  },
   scrollContainer: {
     flexGrow: 1,
   },

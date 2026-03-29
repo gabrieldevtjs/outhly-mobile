@@ -1,9 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Header } from "@components/Header";
-import { HeaderBack } from "@components/HeaderBack";
+import { Header } from "@components/layout/header";
 import Home from "@screens/home/view";
 import Config from "@screens/config/view";
-import TesteWatermelon from "@screens/sections/gerador";
 
 const AppStack = createNativeStackNavigator({
   screenOptions: {
@@ -20,18 +18,6 @@ const AppStack = createNativeStackNavigator({
       screen: Home,
       options: {
         header: () => <Header />,
-      },
-    },
-    Sections: {
-      screen: TesteWatermelon,
-      options: {
-        header: () => <HeaderBack title="Senhas" />,
-        presentation: "containedModal",
-        sheetAllowedDetents: [0.5],
-        sheetInitialDetentIndex: 0,
-        sheetGrabberVisible: true,
-        sheetCornerRadius: 24,
-        sheetLargestUndimmedDetentIndex: -1,
       },
     },
     Config: {

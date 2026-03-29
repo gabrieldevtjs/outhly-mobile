@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
-import { Card } from "@components/Card";
+import { Card } from "@components/cards/card";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import React from "react";
