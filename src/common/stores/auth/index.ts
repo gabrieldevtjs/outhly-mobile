@@ -7,15 +7,18 @@ const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
-      isLoading: false,
+      isHydrated: false,
       setUser: (user) => set({ user }),
-      setLoading: (isLoading) => set({ isLoading }),
+      setHydrated: (isHydrated: boolean) => set({ isHydrated }),
       signOut: () => set({ user: null }),
     }),
     {
       name: "auth-storage",
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({ user: state.user }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHydrated(true);
+      },
     },
   ),
 );

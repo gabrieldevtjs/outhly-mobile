@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { CategoryCard } from "../components/card";
 import { CategoryCardSkeleton } from "../../../common/skeletons/home";
 import { useEffect, useState } from "react";
+import Page from "@components/layout/page";
 
 const cards = [
   {
@@ -37,55 +38,39 @@ const cards = [
 ] as const;
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const primaryColor = theme.primary?.get();
 
   return (
-    <YStack>
+    <Page>
       <YStack>
-        {isLoading ? (
-          <CategoryCardSkeleton />
-        ) : (
-          <>
-            <XStack justify="space-between">
-              <Text pb="$md">Categorias</Text>
-              <TouchableOpacity>
-                <YStack>
-                  <XStack>
-                    <Text>Ver todos</Text>
-                    <Ionicons
-                      name="arrow-forward"
-                      size={14}
-                      color={primaryColor}
-                    />
-                  </XStack>
-                  <View />
-                </YStack>
-              </TouchableOpacity>
-            </XStack>
+        <XStack justify="space-between">
+          <Text pb="$md">Categorias</Text>
+          <TouchableOpacity>
+            <YStack>
+              <XStack>
+                <Text>Ver todos</Text>
+                <Ionicons name="arrow-forward" size={14} color={primaryColor} />
+              </XStack>
+              <View />
+            </YStack>
+          </TouchableOpacity>
+        </XStack>
 
-            <XStack>
-              {cards.map((card) => (
-                <CategoryCard
-                  key={card.id}
-                  title={card.title}
-                  subtitle={card.subtitle}
-                  icon={card.icon}
-                  url={card.navigate}
-                />
-              ))}
-            </XStack>
-          </>
-        )}
+        <XStack>
+          {cards.map((card) => (
+            <CategoryCard
+              key={card.id}
+              title={card.title}
+              subtitle={card.subtitle}
+              icon={card.icon}
+              url={card.navigate}
+            />
+          ))}
+        </XStack>
       </YStack>
-    </YStack>
+    </Page>
   );
 };
 

@@ -5,6 +5,8 @@ import { BiometricStorage } from "../../infrastructure/storage/keychan/biometric
 import { AuthServiceBiometric } from "../../api/auth/biometric";
 
 const setupBiometrics = async () => {
+
+  
   const hasHardware = await Keychain.canImplyAuthentication({
     authenticationType: Keychain.AUTHENTICATION_TYPE.BIOMETRICS,
   });
@@ -13,7 +15,6 @@ const setupBiometrics = async () => {
 
   const biometryRegistred = await BiometricStorage.getBiometricRegistred();
 
-  console.log(biometryRegistred);
   if (!biometryRegistred) return;
 
   const alreadyRegistered = await BiometricStorage.getDeviceToken();

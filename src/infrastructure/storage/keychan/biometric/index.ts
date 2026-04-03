@@ -9,18 +9,25 @@ const BiometricStorage = {
     });
   },
 
-getDeviceToken: async (): Promise<string | null> => {
-  const credentials = await Keychain.getGenericPassword({
-    service: "com.gabrieldev.autly",
-    accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET,
-    authenticationPrompt: {
-      title: "Autenticação necessária",
-      cancel: "Cancelar",
-    },
-  });
+  getDeviceToken: async (): Promise<string | null> => {
+    const hasCredentials = await Keychain.hasGenericPassword({
+      service: "com.gabrieldev.autly",
+    });
 
-  return credentials ? credentials.password : null;
-},
+    if (!hasCredentials) {
+      return null;
+    }
+    const credentials = await Keychain.getGenericPassword({
+      service: "com.gabrieldev.autly",
+      accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET,
+      authenticationPrompt: {
+        title: "Autenticação necessária",
+        cancel: "Cancelar",
+      },
+    });
+
+    return credentials ? credentials.password : null;
+  },
 
   getBiometricRegistred: async (): Promise<Keychain.BIOMETRY_TYPE | null> => {
     const biometryRegistred = await Keychain.getSupportedBiometryType();

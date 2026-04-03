@@ -43,7 +43,6 @@ const LoginScreen = () => {
             justify="center"
             gap="$xxl"
           >
-
             <YStack items="center">
               <Image
                 source={require("@assets/images/icon/icon-new.png")}
@@ -52,9 +51,7 @@ const LoginScreen = () => {
               />
             </YStack>
 
-            {/* form */}
             <YStack gap="$md">
-              {/* email */}
               <Controller
                 control={control}
                 name="email"
@@ -83,7 +80,7 @@ const LoginScreen = () => {
                         onBlur={onBlur}
                         keyboardType="email-address"
                         autoCapitalize="none"
-                        color="$title"
+                        color="$subtitle"
                         bg="transparent"
                         borderWidth={0}
                         fontSize="$md"
@@ -98,7 +95,6 @@ const LoginScreen = () => {
                 )}
               />
 
-              {/* password */}
               <Controller
                 control={control}
                 name="password"
@@ -126,7 +122,7 @@ const LoginScreen = () => {
                         onChangeText={onChange}
                         onBlur={onBlur}
                         secureTextEntry={!showPassword}
-                        color="$title"
+                        color="$subtitle"
                         bg="transparent"
                         borderWidth={0}
                         fontSize="$md"
@@ -147,12 +143,10 @@ const LoginScreen = () => {
                 )}
               />
 
-              {/* forgot password */}
               <Text variant="caption" self="flex-end" onPress={() => {}}>
                 Esqueceu a senha?
               </Text>
 
-              {/* submit */}
               <Button
                 variant="contained"
                 width="100%"
@@ -165,14 +159,12 @@ const LoginScreen = () => {
                 </ButtonText>
               </Button>
 
-              {/* divider */}
               <XStack items="center" gap="$md">
                 <YStack flex={1} height={1} bg="$border" />
                 <Text variant="caption">OU</Text>
                 <YStack flex={1} height={1} bg="$border" />
               </XStack>
 
-              {/* social */}
               <XStack justify="center" gap="$lg">
                 {(["logo-google", "logo-apple", "logo-facebook"] as const).map(
                   (icon) => (
@@ -196,7 +188,6 @@ const LoginScreen = () => {
                 )}
               </XStack>
 
-              {/* signup */}
               <XStack justify="center" items="center">
                 <Text variant="caption">Não tem uma conta? </Text>
                 <Text variant="caption" color="$primary" onPress={goToRegister}>

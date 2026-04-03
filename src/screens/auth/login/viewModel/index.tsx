@@ -37,6 +37,7 @@ const UseLoginViewModel = () => {
         data: { user, tokens },
       } = response;
 
+      console.log(response)
       await AuthStorage.save(tokens.accessToken, tokens.refreshToken);
       useAuthStore.getState().setUser(user);
 

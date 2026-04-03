@@ -12,9 +12,9 @@ const Splash = ({ onFinish }: Props) => {
   const handleAuth = async () => {
     const deviceToken = await authenticateWithBiometrics();
 
-    if (!deviceToken) {
-      useAuthStore.getState().signOut();
-    }
+    // if (!deviceToken) {
+    //   useAuthStore.getState().signOut();
+    // }
     onFinish();
   };
 

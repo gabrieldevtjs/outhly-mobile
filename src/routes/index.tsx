@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { createStaticNavigation } from "@react-navigation/native";
 import Providers from "./providers";
-import RootStack from "./stack";
+import RootStack, { Navigation } from "./stack";
 import Splash from "@screens/sliders/splash";
+import { useAuthStore } from "@common/stores/auth";
 
-const Navigation = createStaticNavigation(RootStack);
+
 
 const Container = () => {
-  const [ready, setReady] = useState(false);
+  const isHydrated = useAuthStore((s) => s.isHydrated);
+  const [splashDone, setSplashDone] = useState(false);
 
-  if (!ready) {
-    return <Splash onFinish={() => setReady(true)} />;
+  if (!isHydrated || !splashDone) {
+    return <Splash onFinish={() => setSplashDone(true)} />;
   }
 
   return (

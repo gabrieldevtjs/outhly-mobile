@@ -29,43 +29,39 @@ const Header = () => {
       edges={["top"]}
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      {isLoading ? (
-        <HeaderSkeleton />
-      ) : (
-        <View style={styles.row}>
-          <View style={styles.info}>
-            <Text style={[styles.greeting, { color: theme.colors.title }]}>
-              Olá,{" "}
-              <Text style={{ color: theme.colors.primary }}>{user?.name}</Text>
-            </Text>
+      <View style={styles.row}>
+        <View style={styles.info}>
+          <Text style={[styles.greeting, { color: theme.colors.title }]}>
+            Olá,{" "}
+            <Text style={{ color: theme.colors.primary }}>{user?.name}</Text>
+          </Text>
 
-            <Text style={[styles.badgeText, { color: theme.colors.subtitle }]}>
-              Bem vindo ao seu cofre
-            </Text>
-          </View>
-
-          <View style={styles.actions}>
-            <TouchableOpacity onPress={toggleTheme} activeOpacity={0.7}>
-              <Ionicons
-                name={mode === "dark" ? "sunny" : "moon"}
-                size={26}
-                color={theme.colors.primary}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => redirectConfig()}
-            >
-              <Ionicons
-                name="person-circle"
-                size={38}
-                color={mode === "dark" ? "#fff" : theme.colors.primary}
-              />
-            </TouchableOpacity>
-          </View>
+          <Text style={[styles.badgeText, { color: theme.colors.subtitle }]}>
+            Bem vindo ao seu cofre
+          </Text>
         </View>
-      )}
+
+        <View style={styles.actions}>
+          <TouchableOpacity onPress={toggleTheme} activeOpacity={0.7}>
+            <Ionicons
+              name={mode === "dark" ? "sunny" : "moon"}
+              size={26}
+              color={theme.colors.primary}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => redirectConfig()}
+          >
+            <Ionicons
+              name="person-circle"
+              size={38}
+              color={mode === "dark" ? "#fff" : theme.colors.primary}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };

@@ -4,11 +4,10 @@ export type User = {
   email: string;
 };
 
-export type AuthStore = {
-  user: User | null;
-  isLoading: boolean;
-  setUser: (user: User) => void;
-  setLoading: (isLoading: boolean) => void;
-  signOut: () => void;
-};
-
+export interface AuthStore {
+  user: User | null
+  isHydrated: boolean
+  setUser: (user: User) => void
+  setHydrated: (isHydrated: boolean) => void
+  signOut: () => void
+}
