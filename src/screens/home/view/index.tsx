@@ -2,40 +2,8 @@ import { TouchableOpacity } from "react-native";
 import { Text, XStack, YStack, View, useTheme } from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { CategoryCard } from "../components/card";
-import { CategoryCardSkeleton } from "../../../common/skeletons/home";
-import { useEffect, useState } from "react";
 import Page from "@components/layout/page";
-
-const cards = [
-  {
-    id: "passwords",
-    title: "Senhas",
-    subtitle: "124 itens salvos",
-    icon: "lock-closed" as const,
-    navigate: "Senhas" as const,
-  },
-  {
-    id: "annotations",
-    title: "Anotações",
-    subtitle: "32 notas salvas",
-    icon: "document-text" as const,
-    navigate: "Senhas" as const,
-  },
-  {
-    id: "generator",
-    title: "Gerador",
-    subtitle: "Criar senha forte",
-    icon: "key" as const,
-    navigate: "Senhas" as const,
-  },
-  {
-    id: "leaks",
-    title: "Vazamentos",
-    subtitle: "Monitoramento",
-    icon: "shield" as const,
-    navigate: "Senhas" as const,
-  },
-] as const;
+import { HOME_MODULES_CARDS } from "../model/constants";
 
 const Home = () => {
   const theme = useTheme();
@@ -46,7 +14,9 @@ const Home = () => {
     <Page>
       <YStack>
         <XStack justify="space-between">
-          <Text pb="$md">Categorias</Text>
+          <Text pb="$md" fontWeight={"600"}>
+            Categorias
+          </Text>
           <TouchableOpacity>
             <YStack>
               <XStack>
@@ -58,8 +28,8 @@ const Home = () => {
           </TouchableOpacity>
         </XStack>
 
-        <XStack>
-          {cards.map((card) => (
+        <XStack flexWrap="wrap" gap={20}>
+          {HOME_MODULES_CARDS.map((card) => (
             <CategoryCard
               key={card.id}
               title={card.title}

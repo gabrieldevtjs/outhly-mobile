@@ -3,12 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  RootRoutesTypes,
-  SectionRoutesType,
-} from "../../../../routes/stack/types";
+
 import { useTheme } from "@common/hooks/useTheme";
 import { Theme } from "@common/theme";
+import { RootRoutesTypes, SectionRoutesType } from "@routes/stack/app/types";
 
 type Props = {
   title: string;

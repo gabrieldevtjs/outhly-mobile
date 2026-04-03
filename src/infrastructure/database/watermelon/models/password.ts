@@ -1,7 +1,7 @@
 import Model from "@nozbe/watermelondb/Model";
 import { field, date } from "@nozbe/watermelondb/decorators";
 
-export default class Password extends Model {
+class Password extends Model {
   static table = "passwords";
 
   @field("user_id") userId!: string;
@@ -11,3 +11,5 @@ export default class Password extends Model {
   @date("updated_at") updatedAt!: Date;
   @date("created_at") createdAt!: Date;
 }
+
+export default Password;

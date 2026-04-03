@@ -8,7 +8,7 @@ const Page = ({ children, ...props }: PageProps) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <YStack flex={1} pt={insets.top} pb={insets.bottom} bg="$bg" {...props}>
+    <YStack flex={1} pt={insets.top} pb={insets.bottom} bg="$bg" {...props} px={20}>
       {children}
     </YStack>
   );

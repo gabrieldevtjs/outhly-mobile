@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SenhaViewSection } from "@screens/sections/senhas/view";
 import { Header } from "@components/layout/header";
 import Home from "@screens/home/view";
 import Config from "@screens/config/view";
@@ -20,6 +21,7 @@ const AppStack = createNativeStackNavigator({
         header: () => <Header />,
       },
     },
+    Senha: SenhaViewSection,
     Config: {
       screen: Config,
       options: {
