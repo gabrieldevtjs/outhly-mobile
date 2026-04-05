@@ -1,6 +1,6 @@
 # Desafio Técnico — Senior React Native Engineer
 
-## Secure Vault: Gerenciador de Senhas e Anotações
+## Gerenciador de Senhas e Anotações
 
 ### Contexto
 
